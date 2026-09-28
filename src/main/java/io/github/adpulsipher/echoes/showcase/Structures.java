@@ -565,6 +565,10 @@ public final class Structures {
 		return b.at(0, 1, 0);
 	}
 
+	private static String id(Item item) {
+		return net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item).toString();
+	}
+
 	private static void populateArmory(Builder b) {
 		MinecraftServer server = b.level.getServer();
 		for (int i = 0; i < DISPLAYS.size(); i++) {
@@ -572,7 +576,9 @@ public final class Structures {
 			double x = b.origin.getX() - 8 + i * 3 + 1 + 0.5;
 			double y = b.origin.getY() + 2;
 			double z = b.origin.getZ() + 4 + 0.5;
-			String command = String.format(java.util.Locale.ROOT, "summon minecraft:armor_stand %.2f %.2f %.2f {ShowArms:1b,NoBasePlate:1b,Rotation:[180f,0f],Tags:[\"echoes_showcase\"]}", x, y, z);
+			String equipment = String.format("equipment:{head:{id:\"%s\",count:1},chest:{id:\"%s\",count:1},legs:{id:\"%s\",count:1},feet:{id:\"%s\",count:1},mainhand:{id:\"%s\",count:1}}",
+					id(display.head()), id(display.chest()), id(display.legs()), id(display.feet()), id(display.weapon()));
+			String command = String.format(java.util.Locale.ROOT, "summon minecraft:armor_stand %.2f %.2f %.2f {ShowArms:1b,NoBasePlate:1b,Rotation:[180f,0f],Tags:[\"echoes_showcase\"],%s}", x, y, z, equipment);
 			server.getCommands().performPrefixedCommand(server.createCommandSourceStack().withLevel(b.level).withSuppressedOutput(), command);
 			for (LivingEntity stand : b.level.getEntitiesOfClass(LivingEntity.class, new AABB(x - 0.5, y - 0.5, z - 0.5, x + 0.5, y + 2.5, z + 0.5),
 					e -> EntityType.getKey(e.getType()).getPath().equals("armor_stand"))) {

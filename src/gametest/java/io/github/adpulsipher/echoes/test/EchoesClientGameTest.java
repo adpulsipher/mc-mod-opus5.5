@@ -70,7 +70,7 @@ public class EchoesClientGameTest implements FabricClientGameTest {
 			scene(context, singleplayer, server, x + 320, y, z, "structure dig_site", 0, 10, 2, 180, 40, 60, "echoes-dig-site");
 			server.runCommand("time set 12800");
 			scene(context, singleplayer, server, x + 420, y, z, "arena hollow_king", 0, 13, -36, 0, 22, 180, "echoes-hollow-king");
-			scene(context, singleplayer, server, x + 520, y, z, "arena siege_colossus", 0, 11, 4, 180, 22, 180, "echoes-siege-colossus");
+			scene(context, singleplayer, server, x + 520, y, z, "arena siege_colossus", 0, 20, 1, 180, 45, 180, "echoes-siege-colossus");
 			scene(context, singleplayer, server, x + 620, y, z, "arena hierophant", 0, 8, 3, 180, 12, 180, "echoes-hierophant");
 			scene(context, singleplayer, server, x + 720, y, z, "arena echo_wyrm", 0, 10, 4, 180, 15, 180, "echoes-wyrm-roost");
 
