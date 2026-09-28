@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "echoes_of_the_past:block/relic_cache_stone_3"
+  }
+}

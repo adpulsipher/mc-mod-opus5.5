@@ -1,0 +1,58 @@
+{
+  "display": {
+    "icon": {
+      "id": "echoes_of_the_past:echo_projector"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.root.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.root.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "echoes_of_the_past:gui/advancements/backgrounds/echoes"
+  },
+  "criteria": {
+    "has_shard": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:echo_shard"
+          }
+        ]
+      }
+    },
+    "has_copper": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:copper_ingot"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_shard",
+      "has_copper"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "echoes_of_the_past:echo_projector",
+      "echoes_of_the_past:archaeologist_chisel",
+      "echoes_of_the_past:resonance_compass",
+      "echoes_of_the_past:echo_crystal_block",
+      "echoes_of_the_past:echo_shard_from_block",
+      "echoes_of_the_past:echo_lantern",
+      "echoes_of_the_past:heirloom_locket",
+      "echoes_of_the_past:festival_charm"
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "parent": "echoes_of_the_past:careful_hands",
+  "display": {
+    "icon": {
+      "id": "echoes_of_the_past:echo_block"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.witness_replay.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.witness_replay.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "witnessed": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "witnessed"
+    ]
+  ]
+}

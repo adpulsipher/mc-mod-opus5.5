@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "W": "echoes_of_the_past:wyrmscale",
+    "H": "echoes_of_the_past:wyrm_heart",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "W",
+    "H",
+    "S"
+  ],
+  "result": {
+    "id": "echoes_of_the_past:echoing_blade"
+  }
+}

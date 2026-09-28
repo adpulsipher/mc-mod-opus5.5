@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "W": "echoes_of_the_past:wyrmscale"
+  },
+  "pattern": [
+    "WWW",
+    "W W"
+  ],
+  "result": {
+    "id": "echoes_of_the_past:wyrmscale_helmet"
+  }
+}

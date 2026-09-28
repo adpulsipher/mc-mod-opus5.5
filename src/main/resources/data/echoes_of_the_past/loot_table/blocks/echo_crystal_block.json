@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "echoes_of_the_past:echo_crystal_block"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "echoes_of_the_past:blocks/echo_crystal_block"
+}

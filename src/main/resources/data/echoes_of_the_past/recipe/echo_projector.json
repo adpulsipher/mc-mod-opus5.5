@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": "minecraft:glass",
+    "S": "echoes_of_the_past:echo_shard",
+    "A": "minecraft:amethyst_shard",
+    "C": "minecraft:copper_ingot"
+  },
+  "pattern": [
+    " G ",
+    "SAS",
+    "CCC"
+  ],
+  "result": {
+    "id": "echoes_of_the_past:echo_projector"
+  }
+}

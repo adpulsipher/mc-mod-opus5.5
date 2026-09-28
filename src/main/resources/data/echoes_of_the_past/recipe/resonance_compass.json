@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "S": "echoes_of_the_past:echo_shard",
+    "C": "minecraft:compass"
+  },
+  "pattern": [
+    " S ",
+    "SCS",
+    " S "
+  ],
+  "result": {
+    "id": "echoes_of_the_past:resonance_compass"
+  }
+}

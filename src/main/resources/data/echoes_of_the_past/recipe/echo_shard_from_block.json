@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "echoes_of_the_past:echo_crystal_block"
+  ],
+  "result": {
+    "id": "echoes_of_the_past:echo_shard",
+    "count": 4
+  }
+}

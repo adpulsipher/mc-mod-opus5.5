@@ -1,0 +1,85 @@
+{
+  "parent": "echoes_of_the_past:historian",
+  "display": {
+    "icon": {
+      "id": "minecraft:written_book"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.keeper_of_ages.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.keeper_of_ages.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "battle": {
+      "trigger": "minecraft:impossible"
+    },
+    "siege": {
+      "trigger": "minecraft:impossible"
+    },
+    "dragon_attack": {
+      "trigger": "minecraft:impossible"
+    },
+    "market_day": {
+      "trigger": "minecraft:impossible"
+    },
+    "coronation": {
+      "trigger": "minecraft:impossible"
+    },
+    "ritual": {
+      "trigger": "minecraft:impossible"
+    },
+    "duel": {
+      "trigger": "minecraft:impossible"
+    },
+    "festival": {
+      "trigger": "minecraft:impossible"
+    },
+    "exodus": {
+      "trigger": "minecraft:impossible"
+    },
+    "cave_in": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "battle"
+    ],
+    [
+      "siege"
+    ],
+    [
+      "dragon_attack"
+    ],
+    [
+      "market_day"
+    ],
+    [
+      "coronation"
+    ],
+    [
+      "ritual"
+    ],
+    [
+      "duel"
+    ],
+    [
+      "festival"
+    ],
+    [
+      "exodus"
+    ],
+    [
+      "cave_in"
+    ]
+  ],
+  "rewards": {
+    "experience": 500
+  }
+}

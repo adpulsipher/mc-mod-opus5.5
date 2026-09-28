@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "echoes_of_the_past:ancient_coin",
+    "echoes_of_the_past:echo_dust",
+    "minecraft:glow_berries"
+  ],
+  "result": {
+    "id": "echoes_of_the_past:festival_charm"
+  }
+}

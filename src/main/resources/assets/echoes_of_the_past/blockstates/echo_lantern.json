@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "echoes_of_the_past:block/echo_lantern"
+    },
+    "hanging=true": {
+      "model": "echoes_of_the_past:block/echo_lantern_hanging"
+    }
+  }
+}

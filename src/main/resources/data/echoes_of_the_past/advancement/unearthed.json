@@ -1,0 +1,90 @@
+{
+  "parent": "echoes_of_the_past:where_it_happened",
+  "display": {
+    "icon": {
+      "id": "minecraft:brush"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.unearthed.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.unearthed.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "legionnaire_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:legionnaire_blade"
+          }
+        ]
+      }
+    },
+    "tarnished_crown": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:tarnished_crown"
+          }
+        ]
+      }
+    },
+    "heirloom_locket": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:heirloom_locket"
+          }
+        ]
+      }
+    },
+    "festival_charm": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:festival_charm"
+          }
+        ]
+      }
+    },
+    "ancient_coin": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:ancient_coin"
+          }
+        ]
+      }
+    },
+    "wyrmscale": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:wyrmscale"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "legionnaire_blade",
+      "tarnished_crown",
+      "heirloom_locket",
+      "festival_charm",
+      "ancient_coin",
+      "wyrmscale"
+    ]
+  ]
+}

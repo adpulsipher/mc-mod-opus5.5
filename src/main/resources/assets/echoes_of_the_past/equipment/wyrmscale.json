@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "echoes_of_the_past:wyrmscale"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "echoes_of_the_past:wyrmscale"
+      }
+    ]
+  }
+}

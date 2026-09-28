@@ -84,7 +84,7 @@ public final class EchoesCommands {
 		EchoMemory memory = EchoLore.memoryAt(source.getLevel(), formed);
 		ItemStack echo = new ItemStack(ModItems.ECHO_BLOCK);
 		echo.set(ModComponents.ECHO_MEMORY, memory);
-		player.getInventory().placeItemBackInInventory(echo);
+		io.github.adpulsipher.echoes.Gifts.give(player, echo);
 		source.sendSuccess(() -> Component.translatable("command.echoes_of_the_past.give.success", memory.title()), true);
 		return 1;
 	}

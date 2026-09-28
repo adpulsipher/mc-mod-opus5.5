@@ -1,0 +1,28 @@
+{
+  "parent": "echoes_of_the_past:witness_replay",
+  "display": {
+    "icon": {
+      "id": "minecraft:writable_book"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.historian.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.historian.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "witnessed_five": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "witnessed_five"
+    ]
+  ]
+}

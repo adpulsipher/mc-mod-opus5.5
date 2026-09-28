@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_lantern",
+  "textures": {
+    "lantern": "echoes_of_the_past:block/echo_lantern"
+  }
+}

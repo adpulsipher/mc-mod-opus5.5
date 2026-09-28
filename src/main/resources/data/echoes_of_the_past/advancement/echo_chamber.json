@@ -1,0 +1,35 @@
+{
+  "parent": "echoes_of_the_past:wyrmslayer",
+  "display": {
+    "icon": {
+      "id": "echoes_of_the_past:echoing_blade"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.echo_chamber.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.echo_chamber.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:echoing_blade"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_blade"
+    ]
+  ]
+}

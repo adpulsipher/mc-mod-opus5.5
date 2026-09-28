@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "echoes_of_the_past:ancient_coin",
+    "minecraft:gold_nugget",
+    "minecraft:string",
+    "echoes_of_the_past:echo_dust"
+  ],
+  "result": {
+    "id": "echoes_of_the_past:heirloom_locket"
+  }
+}

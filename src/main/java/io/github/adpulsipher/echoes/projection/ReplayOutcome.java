@@ -146,7 +146,7 @@ public final class ReplayOutcome {
 
 	private static void giveTranscript(ServerPlayer player, HistoricEvent event, boolean resonant, BlockPos relic, boolean alreadyUnearthed) {
 		ItemStack book = transcript(event, resonant, relic, alreadyUnearthed);
-		player.getInventory().placeItemBackInInventory(book);
+		io.github.adpulsipher.echoes.Gifts.give(player, book);
 	}
 
 	// ------------------------------------------------------------------ progress

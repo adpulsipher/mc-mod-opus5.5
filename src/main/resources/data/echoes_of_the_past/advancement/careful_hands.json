@@ -1,0 +1,28 @@
+{
+  "parent": "echoes_of_the_past:root",
+  "display": {
+    "icon": {
+      "id": "echoes_of_the_past:archaeologist_chisel"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.careful_hands.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.careful_hands.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "extracted": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "extracted"
+    ]
+  ]
+}

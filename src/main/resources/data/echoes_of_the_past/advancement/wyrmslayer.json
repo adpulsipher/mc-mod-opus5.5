@@ -1,0 +1,38 @@
+{
+  "parent": "echoes_of_the_past:where_it_happened",
+  "display": {
+    "icon": {
+      "id": "echoes_of_the_past:wyrm_heart"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.wyrmslayer.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.wyrmslayer.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "slain": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "slain"
+    ]
+  ],
+  "rewards": {
+    "experience": 300,
+    "recipes": [
+      "echoes_of_the_past:echoing_blade",
+      "echoes_of_the_past:wyrmscale_helmet",
+      "echoes_of_the_past:wyrmscale_chestplate",
+      "echoes_of_the_past:wyrmscale_leggings",
+      "echoes_of_the_past:wyrmscale_boots"
+    ]
+  }
+}

@@ -127,7 +127,7 @@ public class EchoProjectorBlock extends BaseEntityBlock {
 		} else if (projector.hasEcho()) {
 			if (player.isShiftKeyDown()) {
 				ItemStack echo = projector.eject();
-				player.getInventory().placeItemBackInInventory(echo);
+				io.github.adpulsipher.echoes.Gifts.give(player, echo);
 			} else {
 				projector.start((ServerLevel) level);
 			}

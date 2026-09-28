@@ -1,0 +1,28 @@
+{
+  "parent": "echoes_of_the_past:lingering_doubts",
+  "display": {
+    "icon": {
+      "id": "echoes_of_the_past:heirloom_locket"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.laid_to_rest.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.laid_to_rest.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "rested": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "rested"
+    ]
+  ]
+}
