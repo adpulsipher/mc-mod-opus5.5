@@ -18,6 +18,8 @@ forms, the older the memory it holds.
 
 ![The Hollow King holds court in his ruined throne hall](docs/screenshots/0008_echoes-hollow-king.png)
 ![The Siege Colossus among the walls it once breached](docs/screenshots/0009_echoes-siege-colossus.png)
+![The Hierophant drifts above the Dawn Altar](docs/screenshots/0010_echoes-hierophant.png)
+![The Echo Wyrm circles its roost](docs/screenshots/0011_echoes-wyrm-roost.png)
 
 *Screenshots are captured automatically by the client game test in CI.*
 
