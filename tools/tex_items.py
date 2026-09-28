@@ -405,6 +405,32 @@ def sword(blade, hilt, grip, pommel, length=10, width=2, glow=None, ghost=None):
     return c
 
 
+def gladius():
+    rows = [
+        "..............oo",
+        ".............oHo",
+        "............oHLo",
+        "...........oHLMo",
+        "..........oHLMDo",
+        ".........oHLMDo.",
+        "........oHLMDo..",
+        ".......oHLMDo...",
+        "...oo.oLLMDo....",
+        "...oBooLMDo.....",
+        "....oBBMDo......",
+        "....oCBBo.......",
+        "...oGoBCBo......",
+        "..oGGo.oBCo.....",
+        ".oPGo...ooo.....",
+        ".oPo............",
+    ]
+    c = Canvas(16, 16)
+    pal = dict(STEEL)
+    pal.update({"B": BRONZE["L"], "C": BRONZE["D"], "G": WOOD["M"], "P": BRONZE["M"]})
+    c.grid(rows, pal)
+    return c
+
+
 def chisel():
     c = Canvas(16, 16)
     # handle
@@ -479,7 +505,7 @@ def generate(write, write_raw):
     for piece in ("helmet", "chestplate", "leggings", "boots"):
         write(f"item/wyrmscale_{piece}", armor_icon(piece, VIOLET))
     write("item/archaeologist_chisel", chisel())
-    write("item/legionnaire_blade", sword(STEEL, BRONZE, WOOD, BRONZE, length=8, width=3))
+    write("item/legionnaire_blade", gladius())
     write("item/echoing_blade", sword(VIOLET, CYAN, VIOLET, CYAN, length=11, width=2, glow=rgb("9ff0ff"), ghost=(159, 240, 255, 110)))
     for frame in range(32):
         write(f"item/resonance_compass_{frame:02d}", compass_frame(frame))

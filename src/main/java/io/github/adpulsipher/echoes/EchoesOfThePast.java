@@ -30,6 +30,7 @@ public class EchoesOfThePast implements ModInitializer {
 		ModBlockEntities.init();
 		ModCreativeTab.init();
 		ModWorldgen.init();
+		io.github.adpulsipher.echoes.world.ModLoot.init();
 		EchoesCommands.init();
 		EchoStrikes.init();
 		LOGGER.info("The echoes stir.");
