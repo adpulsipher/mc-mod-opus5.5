@@ -17,7 +17,7 @@ public class EchoesClientGameTest implements FabricClientGameTest {
 		try (TestSingleplayerContext singleplayer = context.worldBuilder().create()) {
 			singleplayer.getConnection().waitForChunksRender();
 			TestServerContext server = singleplayer.getServer();
-			BlockPos p = singleplayer.getConnection().getServerPlayer().blockPosition();
+			BlockPos p = server.computeOnServer(s -> s.getPlayerList().getPlayers().getFirst().blockPosition());
 			int x = p.getX();
 			int y = p.getY() + 30;
 			int z = p.getZ();
