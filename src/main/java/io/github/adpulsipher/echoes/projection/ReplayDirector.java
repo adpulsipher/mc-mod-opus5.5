@@ -209,8 +209,11 @@ public class ReplayDirector {
 				}
 				int since = t - Choreographer.BEATS[i];
 				// The action bar fades after a few seconds, so keep the line up for most of the act.
-				if (since % 40 == 0 && since < 120) {
-					Component line = Component.literal(event.narration().get(i)).withStyle(Style.EMPTY.withColor(0xDDF6FF).withItalic(true));
+				List<String> parts = splitLine(event.narration().get(i), 60);
+				int shown = since / 45;
+				if (since % 45 == 0 && shown < Math.max(parts.size(), 3)) {
+					String text = parts.get(Math.min(shown, parts.size() - 1));
+					Component line = Component.literal(text).withStyle(Style.EMPTY.withColor(0xDDF6FF).withItalic(true));
 					for (ServerPlayer player : audience()) {
 						player.connection.send(new ClientboundSetActionBarTextPacket(line));
 					}
@@ -218,6 +221,27 @@ public class ReplayDirector {
 				break;
 			}
 		}
+	}
+
+	/** Splits narration into action-bar sized phrases at sentence or word boundaries. */
+	static List<String> splitLine(String line, int max) {
+		List<String> parts = new ArrayList<>();
+		String rest = line.trim();
+		while (rest.length() > max) {
+			int cut = rest.lastIndexOf(". ", max);
+			if (cut < max / 3) {
+				cut = rest.lastIndexOf(' ', max);
+			} else {
+				cut += 1;
+			}
+			if (cut <= 0) {
+				cut = max;
+			}
+			parts.add(rest.substring(0, cut).trim());
+			rest = rest.substring(cut).trim();
+		}
+		parts.add(rest);
+		return parts;
 	}
 
 	private void warnRift() {

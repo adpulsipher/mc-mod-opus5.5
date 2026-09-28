@@ -10,6 +10,14 @@ of years ago.
 Every chunk of every world has its own history, generated deterministically from the world seed. The deeper an echo
 forms, the older the memory it holds.
 
+![Blocks and creatures of Echoes of the Past](docs/screenshots/0000_echoes-showcase.png)
+
+![Two armies of the Age of Crowns face off in a replay](docs/screenshots/0001_echoes-replay-1.png)
+![The lines break upon one another](docs/screenshots/0002_echoes-replay-2.png)
+![A dragon-age memory tears open a rift](docs/screenshots/0004_echoes-replay-dragons.png)
+
+*Screenshots are captured automatically by the client game test in CI.*
+
 ## Gameplay
 
 ### 1. Find echoes
