@@ -65,14 +65,14 @@ public class EchoesClientGameTest implements FabricClientGameTest {
 
 			// The expansion: showcase structures and the great echoes, built by the Codex of Echoes.
 			server.runCommand("time set noon");
-			scene(context, singleplayer, server, x + 120, y, z, "structure bestiary", 0, 12, 4, 30, 80, "echoes-bestiary");
-			scene(context, singleplayer, server, x + 220, y, z, "structure armory", 0, 3, 6, 15, 60, "echoes-armory");
-			scene(context, singleplayer, server, x + 320, y, z, "structure dig_site", 0, 7, 2, 35, 60, "echoes-dig-site");
+			scene(context, singleplayer, server, x + 120, y, z, "structure bestiary", 0, 14, 6, 180, 35, 80, "echoes-bestiary");
+			scene(context, singleplayer, server, x + 220, y, z, "structure armory", 0, 4, -20, 0, 10, 60, "echoes-armory");
+			scene(context, singleplayer, server, x + 320, y, z, "structure dig_site", 0, 10, 2, 180, 40, 60, "echoes-dig-site");
 			server.runCommand("time set 12800");
-			scene(context, singleplayer, server, x + 420, y, z, "arena hollow_king", 0, 5, 0, 12, 180, "echoes-hollow-king");
-			scene(context, singleplayer, server, x + 520, y, z, "arena siege_colossus", 0, 7, 4, 12, 180, "echoes-siege-colossus");
-			scene(context, singleplayer, server, x + 620, y, z, "arena hierophant", 0, 5, 3, 10, 180, "echoes-hierophant");
-			scene(context, singleplayer, server, x + 720, y, z, "arena echo_wyrm", 0, 8, 3, 15, 180, "echoes-wyrm-roost");
+			scene(context, singleplayer, server, x + 420, y, z, "arena hollow_king", 0, 13, -36, 0, 22, 180, "echoes-hollow-king");
+			scene(context, singleplayer, server, x + 520, y, z, "arena siege_colossus", 0, 11, 4, 180, 22, 180, "echoes-siege-colossus");
+			scene(context, singleplayer, server, x + 620, y, z, "arena hierophant", 0, 8, 3, 180, 12, 180, "echoes-hierophant");
+			scene(context, singleplayer, server, x + 720, y, z, "arena echo_wyrm", 0, 10, 4, 180, 15, 180, "echoes-wyrm-roost");
 
 			// The two books.
 			server.runOnServer(s -> {
@@ -94,14 +94,16 @@ public class EchoesClientGameTest implements FabricClientGameTest {
 	 * to look at what it made.
 	 */
 	private static void scene(ClientGameTestContext context, TestSingleplayerContext singleplayer, TestServerContext server, int x, int y, int z,
-			String entry, int camX, int camY, int camZ, int pitch, int wait, String name) {
+			String entry, int camX, int camY, int camZ, int yaw, int pitch, int wait, String name) {
 		server.runCommand(String.format("tp @a %d %d %d 180 0", x, y + 1, z));
 		server.runCommand(String.format("setblock %d %d %d minecraft:glass", x, y, z));
 		context.waitTicks(20);
 		singleplayer.getConnection().waitForChunksRender();
 		server.runCommand(String.format("tp @a %d %d %d 180 0", x, y + 1, z));
 		server.runCommand("execute as @p at @p run echoes showcase " + entry);
-		server.runCommand(String.format("tp @a %d %d %d 180 %d", x + camX, y + 1 + camY, z + camZ, pitch));
+		// An invisible perch so the camera does not fall while the scene plays out.
+		server.runCommand(String.format("setblock %d %d %d minecraft:barrier", x + camX, y + camY, z + camZ));
+		server.runCommand(String.format("tp @a %d %d %d %d %d", x + camX, y + 1 + camY, z + camZ, yaw, pitch));
 		context.waitTicks(wait);
 		singleplayer.getConnection().waitForChunksRender();
 		context.takeScreenshot(name);

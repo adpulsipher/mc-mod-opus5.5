@@ -87,7 +87,7 @@ public final class GuideBook {
 	public static List<Component> pages() {
 		List<Component> pages = new ArrayList<>();
 		pages.add(Component.empty()
-				.append(text("\n  Echoes of the Past\n\n", ACCENT).withStyle(s -> s.withBold(true)))
+				.append(text("\n Echoes of the Past\n\n", ACCENT).withStyle(s -> s.withUnderlined(true)))
 				.append(text(" An Archaeologist's\n    Field Guide\n\n", INK).withStyle(s -> s.withItalic(true)))
 				.append(text("The world remembers. Beneath your feet, centuries of history have crystallized into echoes.", INK)));
 
