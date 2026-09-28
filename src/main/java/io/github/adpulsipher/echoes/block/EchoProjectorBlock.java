@@ -127,9 +127,7 @@ public class EchoProjectorBlock extends BaseEntityBlock {
 		} else if (projector.hasEcho()) {
 			if (player.isShiftKeyDown()) {
 				ItemStack echo = projector.eject();
-				if (!player.getInventory().add(echo)) {
-					player.drop(echo, false);
-				}
+				player.getInventory().placeItemBackInInventory(echo);
 			} else {
 				projector.start((ServerLevel) level);
 			}

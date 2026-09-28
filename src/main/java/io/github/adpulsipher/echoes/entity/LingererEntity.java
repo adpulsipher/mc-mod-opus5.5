@@ -168,7 +168,8 @@ public class LingererEntity extends Monster {
 		}
 		Vec3 destination = position().add(toTarget.normalize().scale(Math.min(distance - 1.5, 6.0)));
 		level.sendParticles(ParticleTypes.REVERSE_PORTAL, getX(), getY(0.5), getZ(), 20, 0.3, 0.6, 0.3, 0.05);
-		if (randomTeleport(destination.x, destination.y, destination.z, false)) {
+		if (level.noCollision(this, getBoundingBox().move(destination.subtract(position())))) {
+			teleportTo(destination.x, destination.y, destination.z);
 			level.sendParticles(ParticleTypes.SCULK_SOUL, getX(), getY(0.5), getZ(), 8, 0.3, 0.5, 0.3, 0.02);
 			level.playSound(null, getX(), getY(), getZ(), ModSounds.LINGERER_PHASE, SoundSource.HOSTILE, 0.8f, 1.4f);
 		}

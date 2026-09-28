@@ -19,6 +19,7 @@ import io.github.adpulsipher.echoes.replay.Role;
 import io.github.adpulsipher.echoes.replay.SoundKind;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -184,7 +185,7 @@ public class ReplayDirector {
 			level.sendParticles(ParticleTypes.END_ROD, center.x, center.y + height, center.z, 2, 0.1, 0.3, 0.1, 0.01);
 		}
 		if (tick == INTRO - 10) {
-			level.sendParticles(ParticleTypes.FLASH, center.x, center.y + 1.5, center.z, 1, 0, 0, 0, 0);
+			level.sendParticles(ColorParticleOption.create(ParticleTypes.FLASH, 0xFFFFFFFF), center.x, center.y + 1.5, center.z, 1, 0.0, 0.0, 0.0, 0.0);
 			level.playSound(null, origin, ModSounds.REPLAY_WHISPER, SoundSource.AMBIENT, 1.0f, 0.8f);
 			showTitle();
 		}

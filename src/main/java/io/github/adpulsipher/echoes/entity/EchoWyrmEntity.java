@@ -61,7 +61,6 @@ public class EchoWyrmEntity extends Monster {
 		super(type, level);
 		this.xpReward = 250;
 		this.setNoGravity(true);
-		this.noCulling = true;
 		this.bossEvent = new ServerBossEvent(UUID.randomUUID(), this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.NOTCHED_10);
 		this.bossEvent.setDarkenScreen(true);
 	}

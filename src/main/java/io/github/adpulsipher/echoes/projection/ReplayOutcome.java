@@ -146,9 +146,7 @@ public final class ReplayOutcome {
 
 	private static void giveTranscript(ServerPlayer player, HistoricEvent event, boolean resonant, BlockPos relic, boolean alreadyUnearthed) {
 		ItemStack book = transcript(event, resonant, relic, alreadyUnearthed);
-		if (!player.getInventory().add(book)) {
-			player.drop(book, false);
-		}
+		player.getInventory().placeItemBackInInventory(book);
 	}
 
 	// ------------------------------------------------------------------ progress

@@ -69,7 +69,7 @@ public final class ModItems {
 			.component(DataComponents.CONSUMABLE, Consumable.builder()
 					.consumeSeconds(0.8f)
 					.animation(ItemUseAnimation.TOOT_HORN)
-					.sound(SoundEvents.AMETHYST_BLOCK_CHIME)
+					.sound(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.AMETHYST_BLOCK_CHIME))
 					.hasConsumeParticles(false)
 					.onConsume(new ApplyStatusEffectsConsumeEffect(List.of(
 							new MobEffectInstance(MobEffects.REGENERATION, 20 * 12, 0),

@@ -20,7 +20,7 @@ jobs:
       - name: Build
         run: |
           set -o pipefail
-          ./gradlew build --no-daemon 2>&1 | tee build.log
+          ./gradlew build --no-daemon --quiet 2>&1 | tee build.log
       - name: Server game tests
         run: |
           set -o pipefail
@@ -54,6 +54,6 @@ jobs:
           for f in build.log gametest.log clientgametest.log; do
             [ -f "$f" ] || continue
             echo "===== $f ====="
-            grep -E -A3 "error:" "$f" | grep -vE "^--$" | sed -E 's#^/home/runner/work/[^ ]*/src/#src/#' | head -400
+            grep -E -A3 "error:" "$f" | grep -vE "^--$" | sed -E 's#^/home/runner/work/[^ ]*/src/#src/#' | awk '!seen[$0]++' | head -300
             grep -nE "What went wrong|FAILED|Exception|Caused by|Failed to|Couldn't|Unknown|Missing|Invalid|WARN\]|ERROR\]|passed|failed|Test .*(fail|pass)" "$f" | grep -vE "error:|^\s*at |DEBUG" | head -80
           done

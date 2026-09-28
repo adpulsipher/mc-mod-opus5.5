@@ -15,7 +15,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.minecraft.world.phys.AABB;
 
 /**
  * A ghostly figure in a historic replay. It has no will of its own: the replay director moves it every tick,
@@ -39,7 +38,6 @@ public class EchoFigureEntity extends Mob {
 		super(type, level);
 		this.setNoAi(true);
 		this.setNoGravity(true);
-		this.setInvulnerable(true);
 		this.setSilent(true);
 		this.noPhysics = true;
 	}
@@ -158,12 +156,6 @@ public class EchoFigureEntity extends Mob {
 	@Override
 	public boolean removeWhenFarAway(double distance) {
 		return false;
-	}
-
-	@Override
-	public AABB getBoundingBoxForCulling() {
-		AABB box = super.getBoundingBoxForCulling();
-		return getRole() == Role.DRAGON ? box.inflate(6.0) : box.inflate(0.5);
 	}
 
 	@Override

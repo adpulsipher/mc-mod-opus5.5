@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.LanternBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 
 public final class ModBlocks {
 	public static final Block ECHO_DEPOSIT = register("echo_deposit", EchoDepositBlock::new,
@@ -37,10 +36,10 @@ public final class ModBlocks {
 			BlockBehaviour.Properties.ofFullCopy(Blocks.SOUL_LANTERN).lightLevel(state -> 14));
 	public static final Block RELIC_CACHE_SOIL = register("relic_cache_soil",
 			props -> new BrushableBlock(Blocks.COARSE_DIRT, SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED, props),
-			BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.6f).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY));
+			BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.6f).sound(SoundType.SUSPICIOUS_GRAVEL));
 	public static final Block RELIC_CACHE_STONE = register("relic_cache_stone",
 			props -> new BrushableBlock(Blocks.COBBLESTONE, SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED, props),
-			BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.9f).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY));
+			BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.9f).sound(SoundType.SUSPICIOUS_GRAVEL));
 
 	private ModBlocks() {
 	}
