@@ -58,8 +58,8 @@ final class Chronicler {
 				date + ". The " + terrain.landName() + " near " + place + ".",
 				cap(a.name()) + " and " + b.name() + " meet, bound for war by " + cause + ".",
 				hero + " sounds the horn. The lines break upon one another.",
-				foe + " falls" + pick(r, " beneath the banner of " + winner.shortName() + ".", ". The field is lost for " + loser.shortName() + ".", ", and the fighting falters."),
-				cap(winner.name()) + " hold" + (winner.name().startsWith("House") ? "s" : "") + " the field. The rest is silence.");
+				(outcome == Outcome.VICTORY ? foe : hero) + " falls" + pick(r, " beneath the banner of " + winner.name() + ".", ". The field is lost for " + loser.name() + ".", ", and the fighting falters."),
+				cap(winner.name()) + " hold the field. The rest is silence.");
 		List<String> chronicle = new ArrayList<>();
 		chronicle.add(title + ".\n" + date + ".\n\nIn the " + terrain.landName() + " beside " + place + ", two hosts made war for " + cause + ".");
 		chronicle.add(cap(a.name()) + ", who bore " + a.sigil() + ", were led by " + hero + ". Against them marched " + b.name() + " under " + b.sigil() + ", with " + foe + " at their head.");
@@ -110,7 +110,7 @@ final class Chronicler {
 				date + ". An ordinary evening in " + place + ".",
 				"A shadow crosses the " + terrain.landName() + ". Bells ring out. " + dragon + " has come.",
 				"Fire falls from the sky. The people of " + place + " run for the caves.",
-				hero + " and the archers of " + a.shortName() + " stand their ground.",
+				hero + " and the archers of " + a.name() + " stand their ground.",
 				switch (outcome) {
 					case TRIUMPH -> dragonShort + " is struck through the eye, and falls screaming into the " + terrain.landName() + ".";
 					case CATASTROPHE -> "Nothing remains of " + place + " but ash. " + dragonShort + " sleeps where it fed.";
@@ -136,7 +136,7 @@ final class Chronicler {
 		String title = pick(r, "Market Day at ", "The Great Fair of ", "The Caravan Days of ") + place;
 		List<String> narration = List.of(
 				date + ". The market square of " + place + ".",
-				"Caravans of " + b.shortName() + " arrive, laden with " + good + ".",
+				"Caravans of " + b.name() + " arrive, laden with " + good + ".",
 				hero + " haggles loudly. Coins change hands.",
 				"A " + pick(r, "juggler", "bard", "fire-eater", "storyteller") + " draws a crowd. Children run between the stalls.",
 				"The day ends well. For a time, " + place + " was prosperous.");
@@ -156,9 +156,9 @@ final class Chronicler {
 		String title = "The Crowning of " + ruler;
 		List<String> narration = List.of(
 				date + ". The great hall of " + place + ".",
-				"The lords of " + a.shortName() + " kneel in two long rows.",
+				"The lords of " + a.name() + " kneel in two long rows.",
 				ruler + " walks between them to the high seat.",
-				foe + " raises the crown of " + a.shortName() + ".",
+				foe + " raises the crown of " + a.name() + ".",
 				outcome == Outcome.TRIUMPH ? "\"Long may they reign.\" The hall roars its oath." : "A blade flashes. The reign lasts but a single breath.");
 		List<String> chronicle = new ArrayList<>();
 		chronicle.add(title + ".\n" + date + ".\n\nWhen the old ruler died without heir, the lords of " + a.name() + " gathered at " + place + " to choose another.");
@@ -177,7 +177,7 @@ final class Chronicler {
 		String title = pick(r, "The Rite of ", "The Summoning at ", "The Long Night of ") + place;
 		List<String> narration = List.of(
 				date + ". A circle of standing stones near " + place + ".",
-				hero + " and the circle of " + a.shortName() + " begin the chant.",
+				hero + " and the mages of " + a.name() + " begin the chant.",
 				"The air thickens. Light pours upward from the center of the ring.",
 				"Something answers. " + cap(foe) + " opens its eye.",
 				outcome == Outcome.TRIUMPH ? "The rite holds. " + cap(foe) + " is bound beneath the stones." : "The circle breaks. None who stood within it are seen again.");
@@ -200,7 +200,7 @@ final class Chronicler {
 		String title = "The Duel of " + hero.substring(hero.indexOf(' ') + 1) + " and " + foe.substring(foe.indexOf(' ') + 1);
 		List<String> narration = List.of(
 				date + ". A ring of onlookers outside " + place + ".",
-				hero + " of " + a.shortName() + " faces " + foe + " of " + b.shortName() + ".",
+				hero + " of " + a.name() + " faces " + foe + " of " + b.name() + ".",
 				"They fight for " + stake + ". Steel rings on steel.",
 				"The crowd falls silent. One champion stumbles.",
 				(outcome == Outcome.VICTORY ? hero : foe) + " stands alone in the ring.");
@@ -218,7 +218,7 @@ final class Chronicler {
 		String title = "The Festival of " + feast.replace("the ", "");
 		List<String> narration = List.of(
 				date + ". The green of " + place + ", on the eve of " + feast + ".",
-				"A great bonfire is lit. The people of " + a.shortName() + " gather close.",
+				"A great bonfire is lit. The people of " + a.name() + " gather close.",
 				hero + " strikes up a tune. The dancing begins.",
 				"Round and round they go, beneath a sky full of stars.",
 				"For one night, the " + terrain.landName() + " knew nothing but joy.");
@@ -256,7 +256,7 @@ final class Chronicler {
 		String title = "The Collapse of the " + place + " " + cap(vein) + " Mine";
 		List<String> narration = List.of(
 				date + ". Deep beneath " + place + ", in the " + vein + " mine.",
-				"The miners of " + a.shortName() + " work the richest vein they have ever found.",
+				"The miners of " + a.name() + " work the richest vein they have ever found.",
 				"A groan in the rock. Dust sifts from the ceiling.",
 				"The tunnel comes down. " + hero + " shouts for the others to run.",
 				outcome == Outcome.SURVIVED ? "Most reach the surface. The vein is sealed forever." : "The mountain keeps them. Their lamps still burn in the dark, somewhere below.");

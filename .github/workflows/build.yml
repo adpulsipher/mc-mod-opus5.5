@@ -54,5 +54,6 @@ jobs:
           for f in build.log gametest.log clientgametest.log; do
             [ -f "$f" ] || continue
             echo "===== $f ====="
-            grep -nE "error:|\berror\b.*\.java|What went wrong|FAILED|Exception|Caused by|Failed to|Couldn't|Unknown|Missing|Invalid|WARN\]|ERROR\]|passed|failed|Test .*(fail|pass)" "$f" | grep -vE "^\s*at |DEBUG" | head -120
+            grep -E -A3 "error:" "$f" | grep -vE "^--$" | sed -E 's#^/home/runner/work/[^ ]*/src/#src/#' | head -400
+            grep -nE "What went wrong|FAILED|Exception|Caused by|Failed to|Couldn't|Unknown|Missing|Invalid|WARN\]|ERROR\]|passed|failed|Test .*(fail|pass)" "$f" | grep -vE "error:|^\s*at |DEBUG" | head -80
           done
