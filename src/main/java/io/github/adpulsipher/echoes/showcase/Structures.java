@@ -166,7 +166,7 @@ public final class Structures {
 		for (int x = -9; x <= -7; x++) {
 			for (int z = 2; z <= 7; z++) {
 				int roof = x == -8 ? 4 : 3;
-				b.set(x, roof, z, x == -8 ? Blocks.WHITE_WOOL : Blocks.LIGHT_GRAY_WOOL);
+				b.set(x, roof, z, Builder.byId(x == -8 ? "white_wool" : "light_gray_wool"));
 			}
 		}
 		for (int z : new int[]{2, 7}) {
@@ -211,9 +211,9 @@ public final class Structures {
 				}
 			}
 		}
-		b.fill(-1, 1, -13, 1, 1, 8, Blocks.RED_CARPET);
-		b.fill(-2, 1, -13, -2, 1, 8, Blocks.YELLOW_CARPET);
-		b.fill(2, 1, -13, 2, 1, 8, Blocks.YELLOW_CARPET);
+		b.fill(-1, 1, -13, 1, 1, 8, Builder.byId("red_carpet"));
+		b.fill(-2, 1, -13, -2, 1, 8, Builder.byId("yellow_carpet"));
+		b.fill(2, 1, -13, 2, 1, 8, Builder.byId("yellow_carpet"));
 		// Ruined walls with tall windows.
 		for (int z = -14; z <= 14; z++) {
 			for (int side : new int[]{-9, 9}) {
@@ -255,7 +255,7 @@ public final class Structures {
 		b.fill(-5, 1, 10, 5, 1, 13, Blocks.POLISHED_BLACKSTONE_BRICKS);
 		b.fill(-3, 2, 10, 3, 2, 10, Builder.stairs(Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS, Direction.SOUTH));
 		b.fill(-3, 2, 11, 3, 2, 13, Blocks.POLISHED_BLACKSTONE);
-		b.fill(-1, 3, 11, 1, 3, 11, Blocks.RED_CARPET);
+		b.fill(-1, 3, 11, 1, 3, 11, Builder.byId("red_carpet"));
 		b.set(0, 3, 12, Builder.stairs(Blocks.POLISHED_BLACKSTONE_STAIRS, Direction.SOUTH));
 		b.set(-1, 3, 12, Blocks.GOLD_BLOCK);
 		b.set(1, 3, 12, Blocks.GOLD_BLOCK);
@@ -265,8 +265,8 @@ public final class Structures {
 		b.set(0, 6, 13, Blocks.GOLD_BLOCK);
 		b.set(-1, 5, 13, Blocks.GOLD_BLOCK);
 		b.set(1, 5, 13, Blocks.GOLD_BLOCK);
-		b.set(-4, 2, 12, Blocks.PURPLE_BANNER);
-		b.set(4, 2, 12, Blocks.PURPLE_BANNER);
+		b.set(-4, 2, 12, Builder.byId("purple_banner"));
+		b.set(4, 2, 12, Builder.byId("purple_banner"));
 		b.set(-5, 2, 10, Blocks.SOUL_LANTERN);
 		b.set(5, 2, 10, Blocks.SOUL_LANTERN);
 		// Rubble and fallen masonry.
@@ -469,7 +469,7 @@ public final class Structures {
 			int x = x0 + i * 9;
 			pen(b, x, 3, x + 9, 12, 9);
 		}
-		b.fill(-2, 1, -3, 2, 1, -1, Blocks.RED_CARPET);
+		b.fill(-2, 1, -3, 2, 1, -1, Builder.byId("red_carpet"));
 		return b.at(0, 1, -2);
 	}
 
@@ -551,7 +551,7 @@ public final class Structures {
 				b.set(10, y, z, Blocks.STONE_BRICKS);
 			}
 		}
-		b.fill(-9, 1, -1, 9, 1, 1, Blocks.RED_CARPET);
+		b.fill(-9, 1, -1, 9, 1, 1, Builder.byId("red_carpet"));
 		for (int i = 0; i < DISPLAYS.size(); i++) {
 			int x = -8 + i * 3 + 1;
 			b.set(x, 1, 4, Blocks.POLISHED_BLACKSTONE);

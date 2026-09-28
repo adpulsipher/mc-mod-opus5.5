@@ -16,7 +16,37 @@ forms, the older the memory it holds.
 ![The lines break upon one another](docs/screenshots/0002_echoes-replay-2.png)
 ![A dragon-age memory tears open a rift](docs/screenshots/0004_echoes-replay-dragons.png)
 
+![The Hollow King holds court in his ruined throne hall](docs/screenshots/0008_echoes-hollow-king.png)
+![The Siege Colossus among the walls it once breached](docs/screenshots/0009_echoes-siege-colossus.png)
+
 *Screenshots are captured automatically by the client game test in CI.*
+
+## New players: the Field Guide
+Everyone who joins a world for the first time receives the **Archaeologist's Field Guide**, an illustrated book
+with a clickable table of contents covering every system in the mod: finding and extracting echoes, the eras,
+relics, rifts, every creature and boss, keystones, weapons, armor and set bonuses. Lost it? Craft another from a book
+and an echo shard.
+
+![The Field Guide](docs/screenshots/0012_echoes-guide-book.png)
+
+## Creative: the Codex of Echoes
+The **Codex of Echoes** (creative tab) opens a menu that builds and summons everything in the mod in front of you:
+
+* **Structures**: Projector Stage, Dig Site (with echo deposits, brushable relic caches and a stocked tent), Throne
+  Hall, Siege Ruin, Wyrm Roost, Dawn Altar, a Bestiary with every creature on display, and an Armory with every
+  armor set on armor stands.
+* **Bosses**: summon any great echo, or build its arena and summon it there.
+* **Creatures**: spawn any of the mod's mobs.
+* **Replays**: build a projector stage and replay a nearby memory of any kind of event (battle, siege, dragon attack,
+  market day, coronation, ritual, duel, festival, exodus, cave-in).
+* **Gear**: an explorer's kit, every armor set with its weapon, every weapon, and all four keystones.
+
+Every entry is also a command: `/echoes showcase <category> <id>` (creative mode or operators).
+
+![The Codex of Echoes](docs/screenshots/0013_echoes-codex.png)
+![The Bestiary](docs/screenshots/0005_echoes-bestiary.png)
+![The Armory](docs/screenshots/0006_echoes-armory.png)
+![A dig site](docs/screenshots/0007_echoes-dig-site.png)
 
 ## Gameplay
 
@@ -92,22 +122,75 @@ Defeat the Wyrm for its **Wyrm Heart**, **Wyrmscales** and the music disc **"The
 **Echoing Blade**, whose every blow is struck again a moment later by a ghostly afterimage, and a set of
 **Wyrmscale armor**.
 
+### 6. The great echoes
+Four memories are strong enough to walk in the present. Each has a boss bar, a hand-written attack pattern and a
+second phase at half health. They can tear free at the end of an unstable replay from their era, or be called on
+demand by setting a **Memory Keystone** into an idle Echo Projector.
+
+| Boss | Era | Fight | Drops |
+|---|---|---|---|
+| **The Hollow King** | Age of Crowns | Cleaves the ground before him, charges fleeing foes, issues decrees that slow and weaken everything nearby, and calls his Echo Knights back from the dead. | Crownbreaker, Crown of the Hollow King, Royal Sigil |
+| **Siege Colossus** | Iron and Ash | Slams with both fists, stomps anyone underfoot, and calls down telegraphed mortar barrages. Arrows glance off its plating. Its furnace heart overheats at half health. | Siegebreaker, Colossus Furnace Core, Colossus Plating |
+| **Echo Wyrm** | Age of Dragons | Circles, swoops and breathes spectral fire; summons Lingerers. | Wyrm Heart, Wyrmscale, music disc |
+| **Hierophant of the Elder Dawn** | Elder Dawn | Floats above its altar behind orbiting wards of light: destroy its Dawn Wisps before your blows can land. Spears you with lances of dawn, calls down starfall and flashes across the altar in novas. | Staff of the Elder Dawn, Dawnstone |
+
+| Keystone | Recipe |
+|---|---|
+| Keystone of Crowns | Tarnished Crown, gold ingots, Block of Echo Crystal |
+| Keystone of Iron and Ash | Legionnaire's Blade, iron blocks, Cindersteel Ingot, Block of Echo Crystal |
+| Keystone of Dragons | Wyrmscales, Block of Echo Crystal |
+| Keystone of the Elder Dawn | Wyrm Heart, amethyst, Spectral Plate, Block of Echo Crystal |
+
+Rifts are themed by era too: Crowns memories release Echo Knights and Spectral Archers, Iron and Ash memories Ash
+Revenants, and the Elder Dawn releases Dawn Wisps.
+
+### 7. Creatures of the deep past
+* **Echo Knight** (below y 16): raises a spectral shield against blows from the front, and charges with its lance.
+  Drops Spectral Plate.
+* **Spectral Archer** (below y 32): keeps its distance and fires chilling bolts that slow.
+* **Ash Revenant** (below y 0): sets what it strikes on fire, and bursts with embers. Drops Revenant Ash.
+* **Dawn Wisp** (below y −40): a floating light that fires bolts of dawn.
+* **Shard Crawler** (caves): a shy crystal beetle that grazes on echo deposits and burrows away when hurt. Drops Echo
+  Shards.
+
+### 8. Arms and armor
+| Weapon | Source | Ability |
+|---|---|---|
+| Spectral Longsword | Spectral Plate | Strikes phased spirits |
+| Ashen Cleaver | Cindersteel | Sets foes alight |
+| Crownbreaker | Hollow King | Use: Royal Decree slows and weakens nearby hostiles and grants you Strength |
+| Siegebreaker | Siege Colossus | Knocks foes back; use: ground slam shockwave |
+| Staff of the Elder Dawn | Hierophant | Use: fires bolts of dawn |
+| Echoing Blade | Echo Wyrm | Every blow is struck again by an afterimage |
+
+| Armor set | Crafted from | Full-set bonus |
+|---|---|---|
+| Spectral Knight | Spectral Plate (Echo Knights) | Speed; every blow counts as spectral |
+| Cindersteel | Cindersteel Ingots (Revenant Ash + iron) | Strength, fire immunity |
+| Colossus | Colossus Plating | Resistance, knockback resistance |
+| Dawnweave | Dawnstone + wool | Night vision, gentle healing |
+| Wyrmscale | Wyrmscales | Fire immunity, slow falling |
+
+The **Crown of the Hollow King** is a strong helmet, and like any crown it keeps Lingerers, Knights and Archers from
+raising a blade against you.
+
 ## Content overview
 
 | Blocks | Items | Mobs |
 |---|---|---|
-| Echo Deposit, Deepslate Echo Deposit | Echo Shard, Echo Dust, Echo Block | Lingerer (hostile) |
-| Echo Projector | Archaeologist's Chisel, Resonance Compass | Memory Moth (ambient, tameable guide) |
-| Block of Echo Crystal, Echo Lantern | Legionnaire's Blade, Tarnished Crown, Heirloom Locket, Festival Charm, Ancient Coin | Echo Wyrm (boss) |
-| Disturbed Earth, Disturbed Stone (brushable) | Wyrmscale, Wyrm Heart, Echoing Blade, Wyrmscale armor, Music Disc | Echoes (replay holograms, 10 roles) |
+| Echo Deposit, Deepslate Echo Deposit | Echo Shard, Echo Dust, Echo Block | Lingerer, Echo Knight, Spectral Archer, Ash Revenant, Dawn Wisp (hostile) |
+| Echo Projector | Archaeologist's Chisel, Resonance Compass, Field Guide, Codex of Echoes | Shard Crawler (neutral), Memory Moth (ambient guide) |
+| Block of Echo Crystal, Echo Lantern | Legionnaire's Blade, Tarnished Crown, Heirloom Locket, Festival Charm, Ancient Coin | Hollow King, Siege Colossus, Echo Wyrm, Hierophant (bosses) |
+| Disturbed Earth, Disturbed Stone (brushable) | 6 weapons, 5 armor sets + 2 crowns, 4 keystones, 8 boss and mob materials, Music Disc | Echoes (replay holograms, 10 roles) |
 
-There are 13 advancements in their own tab, including **Keeper of Ages**: witness every kind of event the world
-remembers.
+There are 21 advancements in their own tab, including **Keeper of Ages** (witness every kind of event the world
+remembers) and **Hunter of Echoes** (defeat all four great echoes).
 
 ### Commands
 * `/echoes history`: lists the remembered history of the chunk you stand in, one event per era.
 * `/echoes give <era>` (operators): conjures the echo of your chunk from the given era.
 * `/echoes replay <pos> <era>` (operators): starts a replay in the projector at `pos`.
+* `/echoes showcase <category> <id>` (creative or operators): runs any entry of the Codex of Echoes.
 
 ## Building
 
@@ -140,6 +223,9 @@ python3 tools/gen_data.py       # models, blockstates, loot tables, recipes, tag
   sounds and narration beats.
 * `projection/`: `ReplayDirector` performs a script in the world with synced hologram entities; `ReplayOutcome`
   hands out transcripts, buries relics, grants advancements and opens rifts.
+* `entity/`: the great echoes share `EchoBoss` (boss bar, synced attack state, enrage). `combat/` holds spectral
+  bolts (server-simulated projectiles), telegraphed area attacks, armor set bonuses and the rules of spectral damage.
+* `showcase/`: the Codex catalog, the structure builder and the actions behind `/echoes showcase`.
 * Rendering uses custom entity models (a humanoid with role props, a serpentine wyrm, a moth, and the projector's
   light-work) drawn translucent and full-bright with a flickering, faction-tinted hologram look.
 

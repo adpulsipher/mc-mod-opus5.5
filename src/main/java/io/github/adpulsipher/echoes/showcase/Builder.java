@@ -104,6 +104,11 @@ final class Builder {
 		}
 	}
 
+	/** Looks a vanilla block up by id; used for the dyed blocks, which are not plain constants. */
+	static Block byId(String id) {
+		return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(id));
+	}
+
 	/** Stairs facing the given direction. */
 	static BlockState stairs(Block block, Direction facing) {
 		return block.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, facing);
