@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.adpulsipher.echoes.EchoesOfThePast;
+import io.github.adpulsipher.echoes.entity.BossKind;
+import io.github.adpulsipher.echoes.entity.EchoBoss;
 import io.github.adpulsipher.echoes.entity.EchoWyrmEntity;
+import io.github.adpulsipher.echoes.entity.Manifestations;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import io.github.adpulsipher.echoes.entity.LingererEntity;
 import io.github.adpulsipher.echoes.history.Era;
 import io.github.adpulsipher.echoes.history.EventType;
@@ -251,23 +256,52 @@ public final class ReplayOutcome {
 
 	// ------------------------------------------------------------------ rifts
 
+	/** Which great echo, if any, tears free at the end of an unstable replay. */
+	static BossKind riftBoss(ServerLevel level, BlockPos projector, HistoricEvent event) {
+		if (!level.getEntitiesOfClass(Mob.class, new AABB(projector).inflate(96), e -> e instanceof EchoBoss || e instanceof EchoWyrmEntity).isEmpty()) {
+			return null;
+		}
+		double roll = level.getRandom().nextDouble();
+		boolean dragonEra = event.era() == Era.DRAGONS || event.era() == Era.ELDER_DAWN;
+		return switch (event.type()) {
+			case DRAGON_ATTACK -> dragonEra ? BossKind.ECHO_WYRM : null;
+			case CORONATION, DUEL -> event.era() == Era.CROWNS && roll < 0.5 ? BossKind.HOLLOW_KING : null;
+			case BATTLE, SIEGE -> switch (event.era()) {
+				case CROWNS -> roll < 0.3 ? BossKind.HOLLOW_KING : null;
+				case IRON_AND_ASH -> roll < 0.35 ? BossKind.SIEGE_COLOSSUS : null;
+				default -> null;
+			};
+			case RITUAL -> event.era() == Era.ELDER_DAWN && roll < 0.5 ? BossKind.HIEROPHANT : null;
+			default -> null;
+		};
+	}
+
+	/** The restless dead of the era the memory comes from. */
+	static Mob riftMinion(ServerLevel level, HistoricEvent event, int index) {
+		EntityType<? extends Mob> type = switch (event.era()) {
+			case CROWNS -> index % 2 == 0 ? ModEntities.ECHO_KNIGHT : ModEntities.SPECTRAL_ARCHER;
+			case IRON_AND_ASH -> index % 3 == 2 ? ModEntities.LINGERER : ModEntities.ASH_REVENANT;
+			case ELDER_DAWN -> ModEntities.DAWN_WISP;
+			case DRAGONS -> index % 2 == 0 ? ModEntities.LINGERER : ModEntities.SPECTRAL_ARCHER;
+			default -> ModEntities.LINGERER;
+		};
+		return type.create(level, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
+	}
+
 	private static void openRift(ServerLevel level, BlockPos projector, HistoricEvent event, List<ServerPlayer> audience) {
 		Vec3 center = Vec3.atBottomCenterOf(projector);
 		level.playSound(null, projector, ModSounds.RIFT_OPEN, SoundSource.HOSTILE, 2.0f, 0.7f);
 		level.sendParticles(ParticleTypes.REVERSE_PORTAL, center.x, center.y + 3, center.z, 200, 2.0, 2.0, 2.0, 0.2);
 		level.sendParticles(ParticleTypes.SONIC_BOOM, center.x, center.y + 3, center.z, 1, 0, 0, 0, 0);
 
-		boolean dragonEra = event.era() == Era.DRAGONS || event.era() == Era.ELDER_DAWN;
-		boolean wyrmAlready = !level.getEntitiesOfClass(EchoWyrmEntity.class, new AABB(projector).inflate(96)).isEmpty();
-		if (event.type() == EventType.DRAGON_ATTACK && dragonEra && !wyrmAlready) {
-			EchoWyrmEntity wyrm = new EchoWyrmEntity(ModEntities.ECHO_WYRM, level);
-			wyrm.setPos(center.x, center.y + 10, center.z);
-			wyrm.setHome(projector.above(10));
-			wyrm.setWyrmName(event.foe());
-			level.addFreshEntity(wyrm);
-			Component name = Component.literal(event.foe()).withStyle(Style.EMPTY.withColor(0xE0A8FF).withBold(true));
+		BossKind boss = riftBoss(level, projector, event);
+		if (boss != null) {
+			String name = boss == BossKind.ECHO_WYRM || boss == BossKind.HOLLOW_KING ? event.foe() : null;
+			Manifestations.spawn(level, boss == BossKind.ECHO_WYRM ? projector.above(2) : projector.above(), boss, name);
+			Component shown = (name != null ? Component.literal(name) : Component.translatable("entity.echoes_of_the_past." + boss.id()))
+					.withStyle(Style.EMPTY.withColor(boss.color()).withBold(true));
 			for (ServerPlayer player : audience) {
-				player.sendSystemMessage(Component.translatable("replay.echoes_of_the_past.wyrm_rift", name));
+				player.sendSystemMessage(Component.translatable("replay.echoes_of_the_past.wyrm_rift", shown));
 			}
 			return;
 		}
@@ -276,16 +310,22 @@ public final class ReplayOutcome {
 		for (int i = 0; i < count; i++) {
 			double angle = level.getRandom().nextDouble() * Math.PI * 2;
 			double r = 3 + level.getRandom().nextDouble() * 3;
-			LingererEntity lingerer = new LingererEntity(ModEntities.LINGERER, level);
 			double x = center.x + Math.cos(angle) * r;
 			double z = center.z + Math.sin(angle) * r;
 			int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mth.floor(x), Mth.floor(z));
 			if (Math.abs(y - projector.getY()) > 6) {
 				y = projector.getY();
 			}
-			lingerer.setPos(x, y, z);
-			lingerer.equipFromEcho(event);
-			level.addFreshEntity(lingerer);
+			Mob ghost = riftMinion(level, event, i);
+			if (ghost == null) {
+				continue;
+			}
+			ghost.setPos(x, y, z);
+			if (ghost instanceof LingererEntity lingerer) {
+				lingerer.equipFromEcho(event);
+			}
+			ghost.setPersistenceRequired();
+			level.addFreshEntity(ghost);
 			level.sendParticles(ParticleTypes.SCULK_SOUL, x, y + 1, z, 12, 0.3, 0.6, 0.3, 0.02);
 		}
 		for (ServerPlayer player : audience) {

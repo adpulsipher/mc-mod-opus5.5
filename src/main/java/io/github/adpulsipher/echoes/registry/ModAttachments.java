@@ -20,6 +20,12 @@ public final class ModAttachments {
 			builder -> builder.initializer(List::of).persistent(Codec.STRING.listOf()).copyOnDeath()
 	);
 
+	/** On a player: whether they have been given the field guide. */
+	public static final AttachmentType<Boolean> RECEIVED_GUIDE = AttachmentRegistry.create(
+			EchoesOfThePast.id("received_guide"),
+			builder -> builder.initializer(() -> false).persistent(Codec.BOOL).copyOnDeath()
+	);
+
 	private ModAttachments() {
 	}
 

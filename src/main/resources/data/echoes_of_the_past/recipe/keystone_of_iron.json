@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": "echoes_of_the_past:legionnaire_blade",
+    "I": "minecraft:iron_block",
+    "N": "echoes_of_the_past:cindersteel_ingot",
+    "E": "echoes_of_the_past:echo_crystal_block"
+  },
+  "pattern": [
+    " L ",
+    "IEI",
+    " N "
+  ],
+  "result": {
+    "id": "echoes_of_the_past:keystone_of_iron"
+  }
+}

@@ -212,7 +212,20 @@ GENERATED_ITEMS = [
     "tarnished_crown", "wyrmscale_helmet", "wyrmscale_chestplate", "wyrmscale_leggings", "wyrmscale_boots",
     "music_disc_echoes", "lingerer_spawn_egg", "memory_moth_spawn_egg", "echo_wyrm_spawn_egg", "echo_lantern",
 ]
-HANDHELD_ITEMS = ["archaeologist_chisel", "legionnaire_blade", "echoing_blade"]
+SETS = {
+    "spectral_knight": ["helmet", "chestplate", "leggings", "boots"],
+    "cindersteel": ["helmet", "chestplate", "leggings", "boots"],
+    "colossus": ["helmet", "chestplate", "leggings", "boots"],
+    "dawnweave": ["hood", "robe", "leggings", "slippers"],
+}
+ARMOR_PIECES = [f"{k}_{p}" for k, v in SETS.items() for p in v]
+NEW_MOBS = ["echo_knight", "spectral_archer", "ash_revenant", "dawn_wisp", "shard_crawler", "hollow_king", "siege_colossus", "hierophant"]
+KEYSTONES = ["keystone_of_crowns", "keystone_of_iron", "keystone_of_dragons", "keystone_of_dawn"]
+GENERATED_ITEMS += [
+    "spectral_plate", "revenant_ash", "cindersteel_ingot", "colossus_plating", "colossus_core", "dawnstone", "royal_sigil",
+    "hollow_crown", "guide_book", "showcase_book",
+] + ARMOR_PIECES + KEYSTONES + [f"{m}_spawn_egg" for m in NEW_MOBS]
+HANDHELD_ITEMS = ["archaeologist_chisel", "legionnaire_blade", "echoing_blade", "spectral_longsword", "ashen_cleaver", "crownbreaker", "siegebreaker", "dawn_staff"]
 BLOCK_ITEMS = ["echo_deposit", "deepslate_echo_deposit", "echo_crystal_block", "echo_projector"]
 
 
@@ -253,6 +266,14 @@ def items():
     }})
     write(asset("equipment", "tarnished_crown.json"), {"layers": {
         "humanoid": [{"texture": ns("tarnished_crown")}],
+    }})
+    for name in SETS:
+        write(asset("equipment", f"{name}.json"), {"layers": {
+            "humanoid": [{"texture": ns(name)}],
+            "humanoid_leggings": [{"texture": ns(name)}],
+        }})
+    write(asset("equipment", "hollow_crown.json"), {"layers": {
+        "humanoid": [{"texture": ns("hollow_crown")}],
     }})
 
 
@@ -310,6 +331,47 @@ def sounds():
         "entity.echo_wyrm.death": [custom("wyrm/death")],
         "entity.echo_wyrm.flap": [vanilla("mob/enderdragon/wings1", 1.1, 0.7), vanilla("mob/enderdragon/wings3", 1.1, 0.7)],
         "music_disc.echoes": [custom("music/echoes", stream=True)],
+        "entity.hollow_king.ambient": [custom("lingerer/ambient1", pitch=0.55), custom("lingerer/ambient2", pitch=0.55)],
+        "entity.hollow_king.hurt": [vanilla("mob/zombie/hurt1", 0.6), vanilla("mob/zombie/hurt2", 0.6)],
+        "entity.hollow_king.death": [custom("lingerer/death", pitch=0.55)],
+        "entity.hollow_king.cleave": [vanilla("entity/player/attack/sweep1", 0.6), vanilla("entity/player/attack/sweep2", 0.6)],
+        "entity.hollow_king.decree": [custom("boss/king_decree")],
+        "entity.hollow_king.roar": [custom("wyrm/roar", pitch=1.4)],
+        "entity.siege_colossus.groan": [custom("boss/colossus_groan")],
+        "entity.siege_colossus.hurt": [vanilla("mob/irongolem/hit1", 0.55), vanilla("mob/irongolem/hit2", 0.55), vanilla("mob/irongolem/hit3", 0.55)],
+        "entity.siege_colossus.death": [vanilla("mob/irongolem/death", 0.45)],
+        "entity.siege_colossus.slam": [custom("boss/colossus_slam")],
+        "entity.siege_colossus.step": [vanilla("mob/irongolem/walk1", 0.55), vanilla("mob/irongolem/walk2", 0.55)],
+        "entity.siege_colossus.mortar": [vanilla("random/explode1", 0.8, 0.8), vanilla("random/explode2", 0.8, 0.8)],
+        "entity.hierophant.ambient": [custom("replay/chant", pitch=1.3, volume=0.5)],
+        "entity.hierophant.hurt": [vanilla("mob/allay/hurt1", 0.6), vanilla("mob/allay/hurt2", 0.6)],
+        "entity.hierophant.death": [custom("boss/hierophant_cast", pitch=0.5)],
+        "entity.hierophant.cast": [custom("boss/hierophant_cast")],
+        "entity.hierophant.lance": [custom("boss/hierophant_lance")],
+        "entity.hierophant.ward_hit": [vanilla("block/amethyst/place1", 1.6), vanilla("block/amethyst/place2", 1.6)],
+        "entity.hierophant.ward_break": [vanilla("random/glass1", 0.8), vanilla("random/glass2", 0.8)],
+        "entity.hierophant.starfall": [custom("boss/starfall")],
+        "entity.echo_knight.ambient": [custom("lingerer/ambient2", pitch=0.8)],
+        "entity.echo_knight.hurt": [vanilla("mob/zombie/hurt1", 1.1, 0.7)],
+        "entity.echo_knight.block": [vanilla("item/shield/block1", 1.1), vanilla("item/shield/block2", 1.1)],
+        "entity.echo_knight.charge": [custom("replay/horn", pitch=1.5, volume=0.4)],
+        "entity.echo_knight.step": [vanilla("mob/irongolem/walk3", 1.8, 0.3)],
+        "entity.ash_revenant.ambient": [vanilla("mob/blaze/breathe1", 0.7), vanilla("mob/blaze/breathe2", 0.7)],
+        "entity.ash_revenant.hurt": [vanilla("mob/blaze/hit1", 0.8), vanilla("mob/blaze/hit2", 0.8)],
+        "entity.ash_revenant.death": [vanilla("mob/blaze/death", 0.7)],
+        "entity.ash_revenant.burst": [vanilla("mob/ghast/fireball4", 0.8)],
+        "entity.dawn_wisp.ambient": [vanilla("mob/allay/idle_without_item1", 0.8, 0.6), vanilla("mob/allay/idle_without_item2", 0.8, 0.6)],
+        "entity.dawn_wisp.hurt": [vanilla("mob/allay/hurt1", 1.2)],
+        "entity.dawn_wisp.death": [vanilla("mob/allay/death1", 1.0)],
+        "entity.shard_crawler.ambient": [vanilla("mob/silverfish/say1", 0.7), vanilla("mob/silverfish/say2", 0.7)],
+        "entity.shard_crawler.hurt": [vanilla("mob/silverfish/hit1", 0.7), vanilla("mob/silverfish/hit2", 0.7)],
+        "entity.shard_crawler.death": [vanilla("mob/silverfish/kill", 0.7)],
+        "entity.shard_crawler.step": [vanilla("mob/silverfish/step1", 0.7), vanilla("mob/silverfish/step2", 0.7)],
+        "entity.shard_crawler.burrow": [vanilla("dig/stone1", 0.7), vanilla("dig/stone2", 0.7)],
+        "combat.bolt.fire": [custom("combat/bolt_fire")],
+        "combat.bolt.hit": [vanilla("block/amethyst/place1", 1.4), vanilla("block/amethyst/place2", 1.4)],
+        "boss.manifest": [custom("boss/manifest")],
+        "showcase.build": [custom("showcase/build")],
     }
     out = {}
     for key, entries in s.items():
@@ -391,6 +453,57 @@ def loot():
     })
     write(lt("entities", "echo_figure.json"), {"type": "minecraft:entity", "pools": []})
 
+    def entity_table(name, pools):
+        write(lt("entities", f"{name}.json"), {"type": "minecraft:entity", "pools": pools, "random_sequence": ns(f"entities/{name}")})
+
+    def chance(p):
+        return {"type": "minecraft:all_of", "terms": [killed_by_player, {"type": "minecraft:random_chance", "chance": p}]}
+
+    entity_table("echo_knight", [
+        {"rolls": 1, "condition": killed_by_player, "entries": [item_entry(ns("spectral_plate"), (0, 2), extra_modifiers=[looting])]},
+        {"rolls": 1, "entries": [item_entry(ns("echo_dust"), (0, 1))]},
+        {"rolls": 1, "condition": chance(0.04), "entries": [item_entry(ns("spectral_longsword"))]},
+    ])
+    entity_table("spectral_archer", [
+        {"rolls": 1, "entries": [item_entry(ns("echo_dust"), (0, 2), extra_modifiers=[looting])]},
+        {"rolls": 1, "entries": [item_entry("minecraft:arrow", (0, 3))]},
+        {"rolls": 1, "condition": chance(0.3), "entries": [item_entry(ns("spectral_plate"))]},
+    ])
+    entity_table("ash_revenant", [
+        {"rolls": 1, "entries": [item_entry(ns("revenant_ash"), (1, 3), extra_modifiers=[looting])]},
+        {"rolls": 1, "entries": [item_entry("minecraft:coal", (0, 2))]},
+        {"rolls": 1, "condition": chance(0.05), "entries": [item_entry(ns("cindersteel_ingot"))]},
+    ])
+    entity_table("dawn_wisp", [
+        {"rolls": 1, "entries": [item_entry(ns("echo_dust"), (0, 2))]},
+        {"rolls": 1, "entries": [item_entry("minecraft:glowstone_dust", (0, 2), extra_modifiers=[looting])]},
+        {"rolls": 1, "condition": chance(0.06), "entries": [item_entry(ns("dawnstone"))]},
+    ])
+    entity_table("shard_crawler", [
+        {"rolls": 1, "entries": [item_entry(ns("echo_shard"), (1, 2), extra_modifiers=[looting])]},
+    ])
+    entity_table("hollow_king", [
+        {"rolls": 1, "entries": [item_entry(ns("crownbreaker"))]},
+        {"rolls": 1, "entries": [item_entry(ns("hollow_crown"))]},
+        {"rolls": 1, "entries": [item_entry(ns("royal_sigil"))]},
+        {"rolls": 1, "entries": [item_entry(ns("ancient_coin"), (8, 16), extra_modifiers=[looting])]},
+        {"rolls": 1, "entries": [item_entry(ns("spectral_plate"), (6, 10))]},
+        {"rolls": 1, "entries": [item_entry("minecraft:gold_ingot", (4, 8))]},
+    ])
+    entity_table("siege_colossus", [
+        {"rolls": 1, "entries": [item_entry(ns("siegebreaker"))]},
+        {"rolls": 1, "entries": [item_entry(ns("colossus_core"))]},
+        {"rolls": 1, "entries": [item_entry(ns("colossus_plating"), (16, 24), extra_modifiers=[looting])]},
+        {"rolls": 1, "entries": [item_entry(ns("cindersteel_ingot"), (4, 8))]},
+        {"rolls": 1, "entries": [item_entry("minecraft:iron_block", (2, 4))]},
+    ])
+    entity_table("hierophant", [
+        {"rolls": 1, "entries": [item_entry(ns("dawn_staff"))]},
+        {"rolls": 1, "entries": [item_entry(ns("dawnstone"), (10, 14), extra_modifiers=[looting])]},
+        {"rolls": 1, "entries": [item_entry(ns("echo_crystal_block"), (2, 4))]},
+        {"rolls": 1, "entries": [item_entry("minecraft:experience_bottle", (4, 8))]},
+    ])
+
     # Relics, one table per kind of event. Brushing a cache yields a single roll.
     coin = ns("ancient_coin")
     relics = {
@@ -448,6 +561,31 @@ def recipes():
     shaped("wyrmscale_boots", ["W W", "W W"], w, ns("wyrmscale_boots"), category="equipment")
     shapeless("heirloom_locket", [ns("ancient_coin"), "minecraft:gold_nugget", "minecraft:string", ns("echo_dust")], ns("heirloom_locket"))
     shapeless("festival_charm", [ns("ancient_coin"), ns("echo_dust"), "minecraft:glow_berries"], ns("festival_charm"))
+    def armor_set(name, pieces, material):
+        m = {"M": material}
+        patterns = [["MMM", "M M"], ["M M", "MMM", "MMM"], ["MMM", "M M", "M M"], ["M M", "M M"]]
+        for piece, pattern in zip(pieces, patterns):
+            shaped(f"{name}_{piece}", pattern, m, ns(f"{name}_{piece}"), category="equipment")
+            RECIPES.append(f"{name}_{piece}")
+
+    armor_set("spectral_knight", SETS["spectral_knight"], ns("spectral_plate"))
+    armor_set("cindersteel", SETS["cindersteel"], ns("cindersteel_ingot"))
+    armor_set("colossus", SETS["colossus"], ns("colossus_plating"))
+    dw = {"D": ns("dawnstone"), "W": "minecraft:white_wool"}
+    shaped("dawnweave_hood", ["DWD", "W W"], dw, ns("dawnweave_hood"), category="equipment")
+    shaped("dawnweave_robe", ["W W", "DWD", "WDW"], dw, ns("dawnweave_robe"), category="equipment")
+    shaped("dawnweave_leggings", ["DWD", "W W", "W W"], dw, ns("dawnweave_leggings"), category="equipment")
+    shaped("dawnweave_slippers", ["D D", "W W"], dw, ns("dawnweave_slippers"), category="equipment")
+    shaped("spectral_longsword", ["P", "P", "S"], {"P": ns("spectral_plate"), "S": "minecraft:stick"}, ns("spectral_longsword"), category="equipment")
+    shapeless("cindersteel_ingot", [ns("revenant_ash")] * 4 + ["minecraft:iron_ingot"], ns("cindersteel_ingot"))
+    shaped("ashen_cleaver", ["II", "IS", " S"], {"I": ns("cindersteel_ingot"), "S": "minecraft:stick"}, ns("ashen_cleaver"), category="equipment")
+    shaped("keystone_of_crowns", [" C ", "GEG", " G "], {"C": ns("tarnished_crown"), "G": "minecraft:gold_ingot", "E": ns("echo_crystal_block")}, ns("keystone_of_crowns"))
+    shaped("keystone_of_iron", [" L ", "IEI", " N "], {"L": ns("legionnaire_blade"), "I": "minecraft:iron_block", "N": ns("cindersteel_ingot"), "E": ns("echo_crystal_block")}, ns("keystone_of_iron"))
+    shaped("keystone_of_dragons", [" W ", "WEW", " W "], {"W": ns("wyrmscale"), "E": ns("echo_crystal_block")}, ns("keystone_of_dragons"))
+    shaped("keystone_of_dawn", [" H ", "AEA", " S "], {"H": ns("wyrm_heart"), "A": "minecraft:amethyst_shard", "S": ns("spectral_plate"), "E": ns("echo_crystal_block")}, ns("keystone_of_dawn"))
+    shapeless("guide_book", ["minecraft:book", shard], ns("guide_book"))
+    RECIPES.extend(["dawnweave_hood", "dawnweave_robe", "dawnweave_leggings", "dawnweave_slippers", "spectral_longsword", "cindersteel_ingot",
+                    "ashen_cleaver", "keystone_of_crowns", "keystone_of_iron", "keystone_of_dragons", "keystone_of_dawn", "guide_book"])
     RECIPES.extend([
         "echo_projector", "archaeologist_chisel", "resonance_compass", "echo_crystal_block", "echo_shard_from_block", "echo_lantern",
         "echoing_blade", "wyrmscale_helmet", "wyrmscale_chestplate", "wyrmscale_leggings", "wyrmscale_boots", "heirloom_locket", "festival_charm",
@@ -464,18 +602,24 @@ def tags():
     write(t("minecraft", "block", "mineable", "shovel.json"), {"replace": False, "values": [ns("relic_cache_soil")]})
     write(t("minecraft", "block", "needs_iron_tool.json"), {"replace": False, "values": [ns("echo_deposit"), ns("deepslate_echo_deposit")]})
 
-    write(t(NS, "item", "spectral_weapons.json"), {"values": [ns("echoing_blade"), ns("legionnaire_blade")]})
+    write(t(NS, "item", "spectral_weapons.json"), {"values": [ns("echoing_blade"), ns("legionnaire_blade"), ns("spectral_longsword"), ns("crownbreaker"), ns("dawn_staff")]})
+    write(t(NS, "item", "repairs_spectral.json"), {"values": [ns("spectral_plate")]})
+    write(t(NS, "item", "repairs_cindersteel.json"), {"values": [ns("cindersteel_ingot")]})
+    write(t(NS, "item", "repairs_royal.json"), {"values": ["minecraft:gold_ingot", ns("royal_sigil")]})
+    write(t(NS, "item", "repairs_colossus.json"), {"values": [ns("colossus_plating")]})
+    write(t(NS, "item", "repairs_dawnweave.json"), {"values": [ns("dawnstone")]})
     write(t(NS, "item", "repairs_wyrmscale.json"), {"values": [ns("wyrmscale")]})
     write(t(NS, "item", "repairs_relic.json"), {"values": [ns("ancient_coin")]})
-    write(t(NS, "item", "crowns.json"), {"values": [ns("tarnished_crown")]})
-    write(t("minecraft", "item", "swords.json"), {"replace": False, "values": [ns("legionnaire_blade"), ns("echoing_blade")]})
-    write(t("minecraft", "item", "head_armor.json"), {"replace": False, "values": [ns("wyrmscale_helmet"), ns("tarnished_crown")]})
-    write(t("minecraft", "item", "chest_armor.json"), {"replace": False, "values": [ns("wyrmscale_chestplate")]})
-    write(t("minecraft", "item", "leg_armor.json"), {"replace": False, "values": [ns("wyrmscale_leggings")]})
-    write(t("minecraft", "item", "foot_armor.json"), {"replace": False, "values": [ns("wyrmscale_boots")]})
+    write(t(NS, "item", "crowns.json"), {"values": [ns("tarnished_crown"), ns("hollow_crown")]})
+    write(t("minecraft", "item", "swords.json"), {"replace": False, "values": [ns(n) for n in ["legionnaire_blade", "echoing_blade", "spectral_longsword", "ashen_cleaver", "crownbreaker", "siegebreaker"]]})
+    slot = lambda i: [ns(f"{k}_{v[i]}") for k, v in SETS.items()]
+    write(t("minecraft", "item", "head_armor.json"), {"replace": False, "values": [ns("wyrmscale_helmet"), ns("tarnished_crown"), ns("hollow_crown")] + slot(0)})
+    write(t("minecraft", "item", "chest_armor.json"), {"replace": False, "values": [ns("wyrmscale_chestplate")] + slot(1)})
+    write(t("minecraft", "item", "leg_armor.json"), {"replace": False, "values": [ns("wyrmscale_leggings")] + slot(2)})
+    write(t("minecraft", "item", "foot_armor.json"), {"replace": False, "values": [ns("wyrmscale_boots")] + slot(3)})
 
-    write(t("minecraft", "entity_type", "undead.json"), {"replace": False, "values": [ns("lingerer")]})
-    write(t("minecraft", "entity_type", "fall_damage_immune.json"), {"replace": False, "values": [ns("memory_moth"), ns("echo_wyrm"), ns("echo_figure")]})
+    write(t("minecraft", "entity_type", "undead.json"), {"replace": False, "values": [ns(n) for n in ["lingerer", "echo_knight", "spectral_archer", "ash_revenant", "hollow_king"]]})
+    write(t("minecraft", "entity_type", "fall_damage_immune.json"), {"replace": False, "values": [ns(n) for n in ["memory_moth", "echo_wyrm", "echo_figure", "dawn_wisp", "hierophant"]]})
 
 
 # ---------------------------------------------------------------- worldgen
@@ -579,6 +723,21 @@ def advancements():
     advancement("wyrmslayer", ns("where_it_happened"), ns("wyrm_heart"), "challenge", {"slain": impossible()}, rewards={
         "experience": 300, "recipes": [ns("echoing_blade"), ns("wyrmscale_helmet"), ns("wyrmscale_chestplate"), ns("wyrmscale_leggings"), ns("wyrmscale_boots")]})
     advancement("echo_chamber", ns("wyrmslayer"), ns("echoing_blade"), "goal", {"has_blade": has_items(ns("echoing_blade"))})
+    advancement("field_notes", ns("root"), ns("guide_book"), "task", {"has_guide": has_items(ns("guide_book"))}, toast=False, chat=False)
+    advancement("key_to_the_past", ns("where_it_happened"), ns("keystone_of_crowns"), "goal",
+                {k: has_items(ns(k)) for k in KEYSTONES}, requirements=[KEYSTONES])
+    advancement("regicide", ns("key_to_the_past"), ns("hollow_crown"), "challenge", {"slain": impossible()}, rewards={"experience": 300})
+    advancement("the_walls_fall", ns("key_to_the_past"), ns("colossus_core"), "challenge", {"slain": impossible()}, rewards={"experience": 300})
+    advancement("dawnbreaker", ns("key_to_the_past"), ns("dawn_staff"), "challenge", {"slain": impossible()}, rewards={"experience": 400})
+    bosses = ["hollow_king", "siege_colossus", "echo_wyrm", "hierophant"]
+    advancement("echo_hunter", ns("dawnbreaker"), ns("royal_sigil"), "challenge", {b: impossible() for b in bosses},
+                requirements=[[b] for b in bosses], rewards={"experience": 1000})
+    advancement("crystal_clear", ns("root"), ns("echo_shard"), "task", {"killed": {
+        "trigger": "minecraft:player_killed_entity",
+        "conditions": {"entity": {"type": "minecraft:entity_properties", "entity": "this", "predicate": {"minecraft:entity_type": ns("shard_crawler")}}},
+    }})
+    advancement("full_regalia", ns("root"), ns("spectral_knight_chestplate"), "goal",
+                {k: has_items(*[ns(f"{k}_{p}") for p in v]) for k, v in SETS.items()}, requirements=[list(SETS)])
 
 
 # ---------------------------------------------------------------- language
@@ -637,7 +796,143 @@ def lang():
         "command.echoes_of_the_past.give.success": "Conjured an echo: %s",
         "command.echoes_of_the_past.replay.no_projector": "There is no idle Echo Projector there.",
     }
+    en.update({
+        "item.echoes_of_the_past.spectral_plate": "Spectral Plate",
+        "item.echoes_of_the_past.revenant_ash": "Revenant Ash",
+        "item.echoes_of_the_past.cindersteel_ingot": "Cindersteel Ingot",
+        "item.echoes_of_the_past.colossus_plating": "Colossus Plating",
+        "item.echoes_of_the_past.colossus_core": "Colossus Furnace Core",
+        "item.echoes_of_the_past.dawnstone": "Dawnstone",
+        "item.echoes_of_the_past.royal_sigil": "Royal Sigil",
+        "item.echoes_of_the_past.spectral_longsword": "Spectral Longsword",
+        "item.echoes_of_the_past.ashen_cleaver": "Ashen Cleaver",
+        "item.echoes_of_the_past.crownbreaker": "Crownbreaker",
+        "item.echoes_of_the_past.siegebreaker": "Siegebreaker",
+        "item.echoes_of_the_past.dawn_staff": "Staff of the Elder Dawn",
+        "item.echoes_of_the_past.hollow_crown": "Crown of the Hollow King",
+        "item.echoes_of_the_past.spectral_knight_helmet": "Spectral Knight Helm",
+        "item.echoes_of_the_past.spectral_knight_chestplate": "Spectral Knight Breastplate",
+        "item.echoes_of_the_past.spectral_knight_leggings": "Spectral Knight Greaves",
+        "item.echoes_of_the_past.spectral_knight_boots": "Spectral Knight Sabatons",
+        "item.echoes_of_the_past.cindersteel_helmet": "Cindersteel Helm",
+        "item.echoes_of_the_past.cindersteel_chestplate": "Cindersteel Hauberk",
+        "item.echoes_of_the_past.cindersteel_leggings": "Cindersteel Leggings",
+        "item.echoes_of_the_past.cindersteel_boots": "Cindersteel Boots",
+        "item.echoes_of_the_past.colossus_helmet": "Colossus Helm",
+        "item.echoes_of_the_past.colossus_chestplate": "Colossus Bulwark",
+        "item.echoes_of_the_past.colossus_leggings": "Colossus Tassets",
+        "item.echoes_of_the_past.colossus_boots": "Colossus Treads",
+        "item.echoes_of_the_past.dawnweave_hood": "Dawnweave Hood",
+        "item.echoes_of_the_past.dawnweave_robe": "Dawnweave Robe",
+        "item.echoes_of_the_past.dawnweave_leggings": "Dawnweave Leggings",
+        "item.echoes_of_the_past.dawnweave_slippers": "Dawnweave Slippers",
+        "item.echoes_of_the_past.keystone_of_crowns": "Keystone of Crowns",
+        "item.echoes_of_the_past.keystone_of_iron": "Keystone of Iron and Ash",
+        "item.echoes_of_the_past.keystone_of_dragons": "Keystone of Dragons",
+        "item.echoes_of_the_past.keystone_of_dawn": "Keystone of the Elder Dawn",
+        "item.echoes_of_the_past.guide_book": "Archaeologist's Field Guide",
+        "item.echoes_of_the_past.showcase_book": "Codex of Echoes",
+        "entity.echoes_of_the_past.echo_knight": "Echo Knight",
+        "entity.echoes_of_the_past.spectral_archer": "Spectral Archer",
+        "entity.echoes_of_the_past.ash_revenant": "Ash Revenant",
+        "entity.echoes_of_the_past.dawn_wisp": "Dawn Wisp",
+        "entity.echoes_of_the_past.shard_crawler": "Shard Crawler",
+        "entity.echoes_of_the_past.hollow_king": "The Hollow King",
+        "entity.echoes_of_the_past.siege_colossus": "Siege Colossus",
+        "entity.echoes_of_the_past.hierophant": "Hierophant of the Elder Dawn",
+        "boss.echoes_of_the_past.enraged": "%s is enraged!",
+        "boss.echoes_of_the_past.slain": "%s returns to the past.",
+        "boss.echoes_of_the_past.stirs": "Something stirs in the echo...",
+        "boss.echoes_of_the_past.hollow_king.decree": "\"KNEEL before your king!\"",
+        "boss.echoes_of_the_past.hollow_king.summon": "\"To me, my sworn!\"",
+        "boss.echoes_of_the_past.siege_colossus.barrage": "The Colossus calls down its engines!",
+        "boss.echoes_of_the_past.siege_colossus.overheat": "The Colossus's furnace heart overheats!",
+        "boss.echoes_of_the_past.hierophant.starfall": "The stars of the first night fall!",
+        "boss.echoes_of_the_past.hierophant.conjure": "Wards of living light gather. Break them!",
+        "guide.echoes_of_the_past.welcome": "You carry an Archaeologist's Field Guide. The world remembers; read on to learn how to listen.",
+        "armor_set.echoes_of_the_past.wyrmscale": "Set bonus: fire immunity, slow falling",
+        "armor_set.echoes_of_the_past.spectral_knight": "Set bonus: speed, spectral strikes",
+        "armor_set.echoes_of_the_past.cindersteel": "Set bonus: strength, fire immunity",
+        "armor_set.echoes_of_the_past.colossus": "Set bonus: resistance",
+        "armor_set.echoes_of_the_past.dawnweave": "Set bonus: night vision, healing",
+        "showcase.echoes_of_the_past.title": "Codex of Echoes",
+        "showcase.echoes_of_the_past.subtitle": "Build, summon and replay anything the world remembers",
+        "showcase.echoes_of_the_past.tab.structure": "Structures",
+        "showcase.echoes_of_the_past.tab.boss": "Bosses",
+        "showcase.echoes_of_the_past.tab.creature": "Creatures",
+        "showcase.echoes_of_the_past.tab.replay": "Replays",
+        "showcase.echoes_of_the_past.tab.gear": "Gear",
+        "showcase.echoes_of_the_past.arena_button": "Build Arena + Summon",
+        "showcase.echoes_of_the_past.done": "Codex: %s",
+        "showcase.echoes_of_the_past.replaying": "Codex: replaying \"%s\"",
+        "showcase.echoes_of_the_past.replay_missing": "No chunk nearby remembers %s.",
+        "showcase.echoes_of_the_past.creative_only": "The Codex of Echoes only answers to creative mode or operators.",
+        "showcase.echoes_of_the_past.unknown": "The Codex has no entry %s.",
+    })
+    showcase = {
+        "structure": {
+            "projector_stage": ("Projector Stage", "A ceremonial stage with an Echo Projector at its heart."),
+            "dig_site": ("Dig Site", "An excavation with echo deposits, relic caches and a stocked tent."),
+            "throne_hall": ("Throne Hall", "The ruined hall of the Hollow King."),
+            "siege_ruin": ("Siege Ruin", "A broken fortress ring where the Colossus fought."),
+            "wyrm_roost": ("Wyrm Roost", "A basalt crag crowned with the ribs of dragons."),
+            "dawn_altar": ("Dawn Altar", "Standing stones around the altar of the Elder Dawn."),
+            "bestiary": ("Bestiary", "Every creature and great echo on display."),
+            "armory": ("Armory", "Every armor set and weapon on armor stands."),
+        },
+        "boss": {
+            "hollow_king": ("Summon the Hollow King", "Crowns-era boss: cleaves, charges, issues decrees and summons knights."),
+            "siege_colossus": ("Summon the Siege Colossus", "Iron and Ash boss: ground slams, mortar barrages, overheats."),
+            "echo_wyrm": ("Summon the Echo Wyrm", "Dragon-age boss: swoops and breathes spectral fire."),
+            "hierophant": ("Summon the Hierophant", "Elder Dawn boss: shielded by wards, lances of light, starfall."),
+        },
+        "arena": {
+            "hollow_king": ("Throne Hall + Hollow King", "Builds the Throne Hall and summons its king."),
+            "siege_colossus": ("Siege Ruin + Colossus", "Builds the Siege Ruin and summons the Colossus."),
+            "echo_wyrm": ("Wyrm Roost + Echo Wyrm", "Builds the Wyrm Roost and summons the Wyrm."),
+            "hierophant": ("Dawn Altar + Hierophant", "Builds the Dawn Altar and summons the Hierophant."),
+        },
+        "creature": {
+            "lingerer": ("Lingerer", "A soldier who never left the battlefield."),
+            "memory_moth": ("Memory Moth", "Feed it echo dust and it leads you to echoes."),
+            "echo_knight": ("Echo Knight", "Shields its front and charges."),
+            "spectral_archer": ("Spectral Archer", "Keeps its distance and fires slowing bolts."),
+            "ash_revenant": ("Ash Revenant", "A burning smith of the Iron and Ash era."),
+            "dawn_wisp": ("Dawn Wisp", "A floating mote of the first light."),
+            "shard_crawler": ("Shard Crawler", "A shy crystal beetle; drops echo shards."),
+        },
+        "replay": {t: (t.replace("_", " ").title(), "Builds a projector stage and replays a nearby memory of this kind.") for t in
+                   ["battle", "siege", "dragon_attack", "market_day", "coronation", "ritual", "duel", "festival", "exodus", "cave_in"]},
+        "gear": {
+            "explorer_kit": ("Explorer's Kit", "Guide, chisel, brush, compass, projector and three echoes of this place."),
+            "wyrmscale": ("Wyrmscale Set", "Wyrmscale armor and the Echoing Blade."),
+            "spectral_knight": ("Spectral Knight Set", "Spectral Knight armor and the Spectral Longsword."),
+            "cindersteel": ("Cindersteel Set", "Cindersteel armor and the Ashen Cleaver."),
+            "colossus": ("Colossus Set", "Colossus armor and Siegebreaker."),
+            "dawnweave": ("Dawnweave Set", "Dawnweave robes and the Staff of the Elder Dawn."),
+            "weapons": ("Every Weapon", "One of every weapon, and the Hollow King's crown."),
+            "keystones": ("Keystones", "All four Memory Keystones and a projector to use them on."),
+        },
+    }
+    showcase["replay"]["dragon_attack"] = ("Dragon Attack", showcase["replay"]["dragon_attack"][1])
+    showcase["replay"]["market_day"] = ("Market Day", showcase["replay"]["market_day"][1])
+    showcase["replay"]["cave_in"] = ("Cave-in", showcase["replay"]["cave_in"][1])
+    for category, entries in showcase.items():
+        for key, (title, desc) in entries.items():
+            en[f"showcase.echoes_of_the_past.{category}.{key}"] = title
+            en[f"showcase.echoes_of_the_past.{category}.{key}.desc"] = desc
+    for mob in NEW_MOBS:
+        en[f"item.echoes_of_the_past.{mob}_spawn_egg"] = en[f"entity.echoes_of_the_past.{mob}"].replace("The ", "") + " Spawn Egg"
+
     adv = {
+        "field_notes": ("Field Notes", "Carry the Archaeologist's Field Guide"),
+        "key_to_the_past": ("Key to the Past", "Craft a Memory Keystone"),
+        "regicide": ("Regicide", "Defeat the Hollow King"),
+        "the_walls_fall": ("The Walls Fall", "Defeat the Siege Colossus"),
+        "dawnbreaker": ("Dawnbreaker", "Defeat the Hierophant of the Elder Dawn"),
+        "echo_hunter": ("Hunter of Echoes", "Defeat all four great echoes"),
+        "crystal_clear": ("Crystal Clear", "Defeat a Shard Crawler"),
+        "full_regalia": ("Full Regalia", "Wear a complete set of echo-forged armor"),
         "root": ("Echoes of the Past", "The past is buried beneath your feet. Find an echo shard or forge some copper to begin."),
         "careful_hands": ("Careful Hands", "Chisel an intact Echo Block out of an echo deposit"),
         "witness_replay": ("Lights of Ages Past", "Watch an echo's memory replay in an Echo Projector"),
@@ -690,6 +985,47 @@ def lang():
         "entity.echo_wyrm.death": "Echo Wyrm dissolves",
         "entity.echo_wyrm.flap": "Wings beat",
         "music_disc.echoes": "Music disc plays",
+        "entity.hollow_king.ambient": "Hollow King mutters",
+        "entity.hollow_king.hurt": "Hollow King hurts",
+        "entity.hollow_king.death": "Hollow King fades",
+        "entity.hollow_king.cleave": "Greatsword cleaves",
+        "entity.hollow_king.decree": "Royal decree",
+        "entity.hollow_king.roar": "Hollow King roars",
+        "entity.siege_colossus.groan": "Colossus groans",
+        "entity.siege_colossus.hurt": "Colossus clangs",
+        "entity.siege_colossus.death": "Colossus collapses",
+        "entity.siege_colossus.slam": "Ground shakes",
+        "entity.siege_colossus.step": "Heavy footsteps",
+        "entity.siege_colossus.mortar": "Mortar impact",
+        "entity.hierophant.ambient": "Hierophant chants",
+        "entity.hierophant.hurt": "Hierophant hurts",
+        "entity.hierophant.death": "Hierophant fades",
+        "entity.hierophant.cast": "Hierophant casts",
+        "entity.hierophant.lance": "Lance of light",
+        "entity.hierophant.ward_hit": "Ward absorbs a blow",
+        "entity.hierophant.ward_break": "Wards shatter",
+        "entity.hierophant.starfall": "Star falls",
+        "entity.echo_knight.ambient": "Echo Knight murmurs",
+        "entity.echo_knight.hurt": "Echo Knight hurts",
+        "entity.echo_knight.block": "Spectral shield blocks",
+        "entity.echo_knight.charge": "Echo Knight charges",
+        "entity.echo_knight.step": "Armored footsteps",
+        "entity.ash_revenant.ambient": "Ash Revenant smoulders",
+        "entity.ash_revenant.hurt": "Ash Revenant hurts",
+        "entity.ash_revenant.death": "Ash Revenant crumbles",
+        "entity.ash_revenant.burst": "Embers burst",
+        "entity.dawn_wisp.ambient": "Dawn Wisp hums",
+        "entity.dawn_wisp.hurt": "Dawn Wisp flickers",
+        "entity.dawn_wisp.death": "Dawn Wisp gutters out",
+        "entity.shard_crawler.ambient": "Shard Crawler chitters",
+        "entity.shard_crawler.hurt": "Shard Crawler hurts",
+        "entity.shard_crawler.death": "Shard Crawler dies",
+        "entity.shard_crawler.step": "Shard Crawler scuttles",
+        "entity.shard_crawler.burrow": "Shard Crawler burrows",
+        "combat.bolt.fire": "Bolt of light fires",
+        "combat.bolt.hit": "Bolt strikes",
+        "boss.manifest": "A great echo manifests",
+        "showcase.build": "Structure rises",
     }
     for key, text in subtitles.items():
         en[f"subtitles.{NS}.{key}"] = text

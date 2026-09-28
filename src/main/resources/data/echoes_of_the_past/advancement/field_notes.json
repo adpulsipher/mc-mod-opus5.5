@@ -1,0 +1,35 @@
+{
+  "parent": "echoes_of_the_past:root",
+  "display": {
+    "icon": {
+      "id": "echoes_of_the_past:guide_book"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.field_notes.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.field_notes.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "has_guide": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:guide_book"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_guide"
+    ]
+  ]
+}

@@ -30,4 +30,12 @@ public class GhostRenderState extends LivingEntityRenderState {
 	/** Projector hologram: which parts of the light-work are lit. */
 	public boolean showCrystal;
 	public boolean showBeam;
+	/** Humanoid props to show, as a bitmask of GhostHumanoidModel.PROP_*, or -1 for the role's defaults. */
+	public int props = -1;
+	/** Bosses: the current attack and how long it has been going. */
+	public int attackState;
+	public float attackTime;
+	public boolean enraged;
+	/** Hierophant: surviving wards. */
+	public int count;
 }

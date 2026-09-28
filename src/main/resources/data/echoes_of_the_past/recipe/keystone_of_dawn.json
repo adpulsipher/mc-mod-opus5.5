@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": "echoes_of_the_past:wyrm_heart",
+    "A": "minecraft:amethyst_shard",
+    "S": "echoes_of_the_past:spectral_plate",
+    "E": "echoes_of_the_past:echo_crystal_block"
+  },
+  "pattern": [
+    " H ",
+    "AEA",
+    " S "
+  ],
+  "result": {
+    "id": "echoes_of_the_past:keystone_of_dawn"
+  }
+}

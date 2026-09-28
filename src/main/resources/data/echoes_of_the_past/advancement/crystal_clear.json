@@ -1,0 +1,37 @@
+{
+  "parent": "echoes_of_the_past:root",
+  "display": {
+    "icon": {
+      "id": "echoes_of_the_past:echo_shard"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.crystal_clear.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.crystal_clear.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "killed": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "echoes_of_the_past:shard_crawler"
+          }
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "killed"
+    ]
+  ]
+}

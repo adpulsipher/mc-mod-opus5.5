@@ -373,6 +373,106 @@ def music_disc():
     return reverb(x, 4.0, 0.4, 4500)
 
 
+# ------------------------------------------------------------------ expansion: bosses and combat
+
+def boss_manifest():
+    d = 4.0
+    t = t_axis(d)
+    rise = sine(55 + 110 * (t / d) ** 2, t) * env(d, 1.5, 0.8) * 0.7
+    choir = np.zeros(len(t))
+    for f in (130.8, 196.0, 261.6):
+        choir += formant_voice(f, d, formants=((600, 1.0), (1000, 0.4), (2500, 0.2))) * env(d, 2.0, 1.0) * 0.4
+    shimmer = bandpass(rng.standard_normal(len(t)), 3000, 9000) * env(d, 2.5, 0.8) * 0.2
+    x = rise + choir + shimmer
+    x = mix_at(x, bell(98, 2.5, rate=1.0) * 1.2, 3.2)
+    return reverb(x, 3.5, 0.5, 3500)
+
+
+def king_decree():
+    d = 2.6
+    t = t_axis(d)
+    x = np.zeros(len(t))
+    for f in (98.0, 146.8, 196.0):
+        x += lowpass(saw(np.full(len(t), f) * (1 + 0.003 * np.sin(2 * np.pi * 5 * t)), t), 1200) * env(d, 0.2, 1.0) * 0.4
+    x = mix_at(x, bell(196, 2.0, rate=1.5) * 0.8, 0.0)
+    return reverb(x, 3.0, 0.5, 3000)
+
+
+def colossus_slam():
+    d = 1.8
+    t = t_axis(d)
+    thud = sine(45 * np.exp(-t * 1.5), t) * np.exp(-t * 3.5)
+    crunch = lowpass(rng.standard_normal(len(t)), 1800) * np.exp(-t * 7) * 0.8
+    clank = bell(310, d, rate=6.0) * 0.4
+    return reverb(thud * 1.4 + crunch + clank, 1.8, 0.35, 2500)
+
+
+def colossus_groan():
+    d = 2.4
+    t = t_axis(d)
+    f = 55 * (1 + 0.15 * np.sin(2 * np.pi * 0.6 * t))
+    metal = lowpass(saw(f, t), 700) * env(d, 0.3, 0.8)
+    screech = bandpass(saw(f * 7.1, t), 500, 1500) * env(d, 0.6, 0.6) * 0.3
+    return reverb(metal + screech, 2.0, 0.4, 2000)
+
+
+def hierophant_cast():
+    d = 2.0
+    t = t_axis(d)
+    x = np.zeros(len(t))
+    for i, f in enumerate((523.3, 659.3, 784.0, 1046.5)):
+        x = mix_at(x, bell(f, 1.6, rate=2.0) * 0.5, i * 0.08)
+    x += sine(261.6, t) * env(d, 0.5, 1.0) * 0.4
+    return reverb(x, 3.0, 0.55, 8000)
+
+
+def hierophant_lance():
+    d = 1.4
+    t = t_axis(d)
+    zap = sine(2400 * np.exp(-t * 3) + 200, t) * np.exp(-t * 4)
+    air = bandpass(rng.standard_normal(len(t)), 2000, 8000) * np.exp(-t * 5) * 0.6
+    return reverb(zap + air, 1.8, 0.4, 9000)
+
+
+def bolt_fire():
+    d = 0.6
+    t = t_axis(d)
+    x = sine(900 * np.exp(-t * 4) + 300, t) * np.exp(-t * 8)
+    x += bandpass(rng.standard_normal(len(t)), 1500, 6000) * np.exp(-t * 12) * 0.5
+    return reverb(x, 0.8, 0.3, 8000)
+
+
+def showcase_build():
+    d = 2.2
+    x = np.zeros(int(SR * d))
+    for i, f in enumerate((392.0, 523.3, 659.3, 784.0)):
+        x = mix_at(x, bell(f, 1.4, rate=2.2) * 0.6, i * 0.12)
+    t = t_axis(d)
+    x += lowpass(rng.standard_normal(len(t)), 400) * env(d, 0.05, 1.0) * 0.3
+    return reverb(x, 2.2, 0.4, 7000)
+
+
+def expansion():
+    save("boss/manifest", boss_manifest())
+    save("boss/king_decree", king_decree())
+    save("boss/colossus_slam", colossus_slam())
+    save("boss/colossus_groan", colossus_groan())
+    save("boss/hierophant_cast", hierophant_cast())
+    save("boss/hierophant_lance", hierophant_lance())
+    save("boss/starfall", starfall_simple())
+    save("combat/bolt_fire", bolt_fire())
+    save("showcase/build", showcase_build())
+
+
+def starfall_simple():
+    d = 1.8
+    t = t_axis(d)
+    whistle = sine(1800 * np.exp(-t * 2.5) + 300, t) * env(d, 0.02, 1.2) * 0.35
+    hit = np.zeros(len(t))
+    hit = mix_at(hit, bell(880, 1.4, rate=3.0) * 0.8, 0.35)
+    return reverb(whistle + hit, 2.0, 0.45, 9000)
+
+
 def main():
     save("projector/activate", projector_activate())
     save("projector/hum", projector_hum(), 0.6)
@@ -400,8 +500,14 @@ def main():
     save("wyrm/roar", wyrm_roar())
     save("wyrm/death", wyrm_death())
     save("music/echoes", music_disc(), 0.8)
+    expansion()
     print("Sounds written.")
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    if "--expansion" in sys.argv:
+        expansion()
+        print("Expansion sounds written.")
+    else:
+        main()

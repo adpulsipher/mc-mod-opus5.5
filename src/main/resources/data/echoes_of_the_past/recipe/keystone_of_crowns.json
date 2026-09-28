@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "echoes_of_the_past:tarnished_crown",
+    "G": "minecraft:gold_ingot",
+    "E": "echoes_of_the_past:echo_crystal_block"
+  },
+  "pattern": [
+    " C ",
+    "GEG",
+    " G "
+  ],
+  "result": {
+    "id": "echoes_of_the_past:keystone_of_crowns"
+  }
+}

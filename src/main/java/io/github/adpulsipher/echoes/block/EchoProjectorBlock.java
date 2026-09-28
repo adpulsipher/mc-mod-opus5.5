@@ -94,6 +94,10 @@ public class EchoProjectorBlock extends BaseEntityBlock {
 
 	@Override
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		if (stack.getItem() instanceof io.github.adpulsipher.echoes.item.KeystoneItem) {
+			// Let the keystone's own use handle the projector.
+			return InteractionResult.PASS;
+		}
 		if (!stack.has(ModComponents.ECHO_MEMORY)) {
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		}

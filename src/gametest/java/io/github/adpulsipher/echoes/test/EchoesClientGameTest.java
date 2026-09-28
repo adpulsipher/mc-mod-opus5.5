@@ -62,6 +62,48 @@ public class EchoesClientGameTest implements FabricClientGameTest {
 			server.runCommand(String.format("tp @a %d %d %d 90 15", x + 2, y + 3, z));
 			context.waitTicks(260);
 			context.takeScreenshot("echoes-replay-dragons");
+
+			// The expansion: showcase structures and the great echoes, built by the Codex of Echoes.
+			server.runCommand("time set noon");
+			scene(context, singleplayer, server, x + 120, y, z, "structure bestiary", 0, 12, 4, 30, 80, "echoes-bestiary");
+			scene(context, singleplayer, server, x + 220, y, z, "structure armory", 0, 3, 6, 15, 60, "echoes-armory");
+			scene(context, singleplayer, server, x + 320, y, z, "structure dig_site", 0, 7, 2, 35, 60, "echoes-dig-site");
+			server.runCommand("time set 12800");
+			scene(context, singleplayer, server, x + 420, y, z, "arena hollow_king", 0, 5, 0, 12, 180, "echoes-hollow-king");
+			scene(context, singleplayer, server, x + 520, y, z, "arena siege_colossus", 0, 7, 4, 12, 180, "echoes-siege-colossus");
+			scene(context, singleplayer, server, x + 620, y, z, "arena hierophant", 0, 5, 3, 10, 180, "echoes-hierophant");
+			scene(context, singleplayer, server, x + 720, y, z, "arena echo_wyrm", 0, 8, 3, 15, 180, "echoes-wyrm-roost");
+
+			// The two books.
+			server.runOnServer(s -> {
+				net.minecraft.server.level.ServerPlayer player = s.getPlayerList().getPlayers().getFirst();
+				player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new net.minecraft.world.item.ItemStack(io.github.adpulsipher.echoes.registry.ModItems.GUIDE_BOOK));
+				player.openItemGui(player.getMainHandItem(), net.minecraft.world.InteractionHand.MAIN_HAND);
+			});
+			context.waitTicks(20);
+			context.takeScreenshot("echoes-guide-book");
+			context.runOnClient(client -> client.setScreen(new io.github.adpulsipher.echoes.client.screen.ShowcaseScreen()));
+			context.waitTicks(20);
+			context.takeScreenshot("echoes-codex");
+			context.runOnClient(client -> client.setScreen(null));
 		}
+	}
+
+	/**
+	 * Stands the player on a pillar at (x, y, z) facing north, runs a Codex entry, then moves the camera up and back
+	 * to look at what it made.
+	 */
+	private static void scene(ClientGameTestContext context, TestSingleplayerContext singleplayer, TestServerContext server, int x, int y, int z,
+			String entry, int camX, int camY, int camZ, int pitch, int wait, String name) {
+		server.runCommand(String.format("tp @a %d %d %d 180 0", x, y + 1, z));
+		server.runCommand(String.format("setblock %d %d %d minecraft:glass", x, y, z));
+		context.waitTicks(20);
+		singleplayer.getConnection().waitForChunksRender();
+		server.runCommand(String.format("tp @a %d %d %d 180 0", x, y + 1, z));
+		server.runCommand("execute as @p at @p run echoes showcase " + entry);
+		server.runCommand(String.format("tp @a %d %d %d 180 %d", x + camX, y + 1 + camY, z + camZ, pitch));
+		context.waitTicks(wait);
+		singleplayer.getConnection().waitForChunksRender();
+		context.takeScreenshot(name);
 	}
 }

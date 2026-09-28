@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     "echoes_of_the_past:legionnaire_blade",
-    "echoes_of_the_past:echoing_blade"
+    "echoes_of_the_past:echoing_blade",
+    "echoes_of_the_past:spectral_longsword",
+    "echoes_of_the_past:ashen_cleaver",
+    "echoes_of_the_past:crownbreaker",
+    "echoes_of_the_past:siegebreaker"
   ]
 }

@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "echoes_of_the_past:wyrmscale_boots"
+    "echoes_of_the_past:wyrmscale_boots",
+    "echoes_of_the_past:spectral_knight_boots",
+    "echoes_of_the_past:cindersteel_boots",
+    "echoes_of_the_past:colossus_boots",
+    "echoes_of_the_past:dawnweave_slippers"
   ]
 }

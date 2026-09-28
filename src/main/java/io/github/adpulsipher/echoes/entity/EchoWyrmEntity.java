@@ -6,7 +6,6 @@ import java.util.UUID;
 import io.github.adpulsipher.echoes.projection.ReplayOutcome;
 import io.github.adpulsipher.echoes.registry.ModEntities;
 import io.github.adpulsipher.echoes.registry.ModSounds;
-import io.github.adpulsipher.echoes.registry.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -41,7 +40,7 @@ import org.jspecify.annotations.Nullable;
  * A dragon remembered so vividly that it tore its way out of an echo and into the present. It circles its
  * ancient hunting ground, diving at intruders and breathing spectral fire.
  */
-public class EchoWyrmEntity extends Monster {
+public class EchoWyrmEntity extends Monster implements io.github.adpulsipher.echoes.combat.Echoborn {
 	private static final EntityDataAccessor<Integer> PHASE = SynchedEntityData.defineId(EchoWyrmEntity.class, EntityDataSerializers.INT);
 	private static final DustParticleOptions WYRM_DUST = new DustParticleOptions(0xD8A6FF, 1.6f);
 
@@ -115,6 +114,9 @@ public class EchoWyrmEntity extends Monster {
 	@Override
 	protected void customServerAiStep(ServerLevel level) {
 		super.customServerAiStep(level);
+		if (isNoAi()) {
+			return;
+		}
 		bossEvent.setProgress(getHealth() / getMaxHealth());
 		phaseTicks++;
 
@@ -235,7 +237,7 @@ public class EchoWyrmEntity extends Monster {
 			if (phaseTicks % 10 == 0) {
 				level.playSound(null, mouth.x, mouth.y, mouth.z, ModSounds.WYRM_BREATH, SoundSource.HOSTILE, 2.0f, 0.9f);
 				AABB cone = new AABB(mouth, mouth).expandTowards(dir.scale(12)).inflate(2.0);
-				List<LivingEntity> victims = level.getEntitiesOfClass(LivingEntity.class, cone, e -> e != this && e.isAlive() && !(e instanceof EchoWyrmEntity));
+				List<LivingEntity> victims = level.getEntitiesOfClass(LivingEntity.class, cone, e -> e != this && e.isAlive() && !io.github.adpulsipher.echoes.combat.Spectral.allied(this, e));
 				for (LivingEntity victim : victims) {
 					Vec3 to = victim.position().subtract(mouth);
 					if (to.normalize().dot(dir) > 0.85) {
@@ -284,7 +286,7 @@ public class EchoWyrmEntity extends Monster {
 
 	@Override
 	public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
-		boolean spectral = source.getWeaponItem() != null && source.getWeaponItem().is(ModTags.SPECTRAL_WEAPONS);
+		boolean spectral = io.github.adpulsipher.echoes.combat.Spectral.isSpectralHit(source);
 		return super.hurtServer(level, source, spectral ? amount * 1.5f : amount);
 	}
 
@@ -296,6 +298,7 @@ public class EchoWyrmEntity extends Monster {
 			level.sendParticles(ParticleTypes.END_ROD, getX(), getY(0.5), getZ(), 120, 2, 2, 2, 0.2);
 			for (ServerPlayer player : level.getEntitiesOfClass(ServerPlayer.class, getBoundingBox().inflate(64))) {
 				ReplayOutcome.grant(player, "wyrmslayer", "slain");
+				ReplayOutcome.grant(player, "echo_hunter", "echo_wyrm");
 			}
 		}
 	}
@@ -303,7 +306,9 @@ public class EchoWyrmEntity extends Monster {
 	@Override
 	public void startSeenByPlayer(ServerPlayer player) {
 		super.startSeenByPlayer(player);
-		bossEvent.addPlayer(player);
+		if (!isNoAi()) {
+			bossEvent.addPlayer(player);
+		}
 	}
 
 	@Override

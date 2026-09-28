@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "echoes_of_the_past:wyrmscale_chestplate"
+    "echoes_of_the_past:wyrmscale_chestplate",
+    "echoes_of_the_past:spectral_knight_chestplate",
+    "echoes_of_the_past:cindersteel_chestplate",
+    "echoes_of_the_past:colossus_chestplate",
+    "echoes_of_the_past:dawnweave_robe"
   ]
 }

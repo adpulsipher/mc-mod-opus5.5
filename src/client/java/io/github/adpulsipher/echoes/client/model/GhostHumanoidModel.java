@@ -17,6 +17,13 @@ import net.minecraft.util.Mth;
  * shown or hidden per role: sword, bow, staff, pickaxe, helmet and crown.
  */
 public class GhostHumanoidModel extends EntityModel<GhostRenderState> {
+	public static final int PROP_SWORD = 1;
+	public static final int PROP_BOW = 2;
+	public static final int PROP_STAFF = 4;
+	public static final int PROP_PICKAXE = 8;
+	public static final int PROP_HELMET = 16;
+	public static final int PROP_CROWN = 32;
+
 	private final ModelPart root;
 	private final ModelPart head;
 	private final ModelPart body;
@@ -116,6 +123,17 @@ public class GhostHumanoidModel extends EntityModel<GhostRenderState> {
 		return LayerDefinition.create(mesh, 128, 128);
 	}
 
+	public static int defaultProps(Role role) {
+		return switch (role) {
+			case SOLDIER, KNIGHT -> PROP_SWORD | PROP_HELMET;
+			case ARCHER -> PROP_BOW;
+			case MAGE -> PROP_STAFF;
+			case MINER -> PROP_PICKAXE | PROP_HELMET;
+			case NOBLE -> PROP_CROWN;
+			default -> 0;
+		};
+	}
+
 	@Override
 	public void setupAnim(GhostRenderState state) {
 		super.setupAnim(state);
@@ -126,13 +144,13 @@ public class GhostHumanoidModel extends EntityModel<GhostRenderState> {
 		head.xRot = state.xRot * Mth.DEG_TO_RAD;
 
 		// Props per role
-		Role role = state.role;
-		sword.visible = role == Role.SOLDIER || role == Role.KNIGHT;
-		bow.visible = role == Role.ARCHER;
-		staff.visible = role == Role.MAGE;
-		pickaxe.visible = role == Role.MINER;
-		helmet.visible = role == Role.SOLDIER || role == Role.KNIGHT || role == Role.MINER;
-		crown.visible = role == Role.NOBLE;
+		int props = state.props >= 0 ? state.props : defaultProps(state.role);
+		sword.visible = (props & PROP_SWORD) != 0;
+		bow.visible = (props & PROP_BOW) != 0;
+		staff.visible = (props & PROP_STAFF) != 0;
+		pickaxe.visible = (props & PROP_PICKAXE) != 0;
+		helmet.visible = (props & PROP_HELMET) != 0;
+		crown.visible = (props & PROP_CROWN) != 0;
 
 		// Idle breathing
 		rightArm.zRot = Mth.cos(t * 0.09f) * 0.05f + 0.05f;

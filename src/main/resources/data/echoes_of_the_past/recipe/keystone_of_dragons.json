@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "W": "echoes_of_the_past:wyrmscale",
+    "E": "echoes_of_the_past:echo_crystal_block"
+  },
+  "pattern": [
+    " W ",
+    "WEW",
+    " W "
+  ],
+  "result": {
+    "id": "echoes_of_the_past:keystone_of_dragons"
+  }
+}

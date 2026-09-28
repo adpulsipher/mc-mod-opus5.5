@@ -51,7 +51,7 @@ import org.jspecify.annotations.Nullable;
  * they cannot be harmed by ordinary weapons, and they can step through time to close the distance to their foe.
  * They will not raise a blade against anyone who wears a crown.
  */
-public class LingererEntity extends Monster {
+public class LingererEntity extends Monster implements io.github.adpulsipher.echoes.combat.Echoborn {
 	private static final EntityDataAccessor<Boolean> PHASED = SynchedEntityData.defineId(LingererEntity.class, EntityDataSerializers.BOOLEAN);
 	private static final int PHASE_DURATION = 30;
 	private static final DustParticleOptions GHOST_DUST = new DustParticleOptions(0x8FEFFF, 0.9f);
@@ -177,7 +177,7 @@ public class LingererEntity extends Monster {
 
 	@Override
 	public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
-		boolean spectral = source.getWeaponItem() != null && source.getWeaponItem().is(ModTags.SPECTRAL_WEAPONS);
+		boolean spectral = io.github.adpulsipher.echoes.combat.Spectral.isSpectralHit(source);
 		if (isPhased() && !spectral && !source.is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)) {
 			level.sendParticles(ParticleTypes.ENCHANTED_HIT, getX(), getY(0.6), getZ(), 6, 0.3, 0.4, 0.3, 0.1);
 			return false;

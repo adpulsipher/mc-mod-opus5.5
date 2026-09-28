@@ -1,0 +1,49 @@
+{
+  "parent": "echoes_of_the_past:dawnbreaker",
+  "display": {
+    "icon": {
+      "id": "echoes_of_the_past:royal_sigil"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.echo_hunter.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.echo_hunter.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "hollow_king": {
+      "trigger": "minecraft:impossible"
+    },
+    "siege_colossus": {
+      "trigger": "minecraft:impossible"
+    },
+    "echo_wyrm": {
+      "trigger": "minecraft:impossible"
+    },
+    "hierophant": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "hollow_king"
+    ],
+    [
+      "siege_colossus"
+    ],
+    [
+      "echo_wyrm"
+    ],
+    [
+      "hierophant"
+    ]
+  ],
+  "rewards": {
+    "experience": 1000
+  }
+}

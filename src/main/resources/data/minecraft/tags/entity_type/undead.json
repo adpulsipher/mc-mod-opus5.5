@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "echoes_of_the_past:lingerer"
+    "echoes_of_the_past:lingerer",
+    "echoes_of_the_past:echo_knight",
+    "echoes_of_the_past:spectral_archer",
+    "echoes_of_the_past:ash_revenant",
+    "echoes_of_the_past:hollow_king"
   ]
 }

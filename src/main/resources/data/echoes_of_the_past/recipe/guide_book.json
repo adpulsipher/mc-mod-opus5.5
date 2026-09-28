@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "echoes_of_the_past:echo_shard"
+  ],
+  "result": {
+    "id": "echoes_of_the_past:guide_book"
+  }
+}

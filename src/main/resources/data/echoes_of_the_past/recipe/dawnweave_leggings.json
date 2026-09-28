@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": "echoes_of_the_past:dawnstone",
+    "W": "minecraft:white_wool"
+  },
+  "pattern": [
+    "DWD",
+    "W W",
+    "W W"
+  ],
+  "result": {
+    "id": "echoes_of_the_past:dawnweave_leggings"
+  }
+}

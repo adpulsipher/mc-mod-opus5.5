@@ -55,7 +55,7 @@ def preview(directory, prefix_filter=None, scale=8, columns=8, name="preview.png
 
 if __name__ == "__main__":
     tex_blocks.generate(write)
-    for module_name in ("tex_items", "tex_entities"):
+    for module_name in ("tex_items", "tex_entities", "tex_expansion"):
         try:
             module = __import__(module_name)
         except ModuleNotFoundError:

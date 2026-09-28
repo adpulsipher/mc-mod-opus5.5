@@ -1,0 +1,104 @@
+{
+  "parent": "echoes_of_the_past:root",
+  "display": {
+    "icon": {
+      "id": "echoes_of_the_past:spectral_knight_chestplate"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.full_regalia.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.full_regalia.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "spectral_knight": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:spectral_knight_helmet"
+          },
+          {
+            "items": "echoes_of_the_past:spectral_knight_chestplate"
+          },
+          {
+            "items": "echoes_of_the_past:spectral_knight_leggings"
+          },
+          {
+            "items": "echoes_of_the_past:spectral_knight_boots"
+          }
+        ]
+      }
+    },
+    "cindersteel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:cindersteel_helmet"
+          },
+          {
+            "items": "echoes_of_the_past:cindersteel_chestplate"
+          },
+          {
+            "items": "echoes_of_the_past:cindersteel_leggings"
+          },
+          {
+            "items": "echoes_of_the_past:cindersteel_boots"
+          }
+        ]
+      }
+    },
+    "colossus": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:colossus_helmet"
+          },
+          {
+            "items": "echoes_of_the_past:colossus_chestplate"
+          },
+          {
+            "items": "echoes_of_the_past:colossus_leggings"
+          },
+          {
+            "items": "echoes_of_the_past:colossus_boots"
+          }
+        ]
+      }
+    },
+    "dawnweave": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:dawnweave_hood"
+          },
+          {
+            "items": "echoes_of_the_past:dawnweave_robe"
+          },
+          {
+            "items": "echoes_of_the_past:dawnweave_leggings"
+          },
+          {
+            "items": "echoes_of_the_past:dawnweave_slippers"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "spectral_knight",
+      "cindersteel",
+      "colossus",
+      "dawnweave"
+    ]
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "echoes_of_the_past:spectral_knight"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "echoes_of_the_past:spectral_knight"
+      }
+    ]
+  }
+}

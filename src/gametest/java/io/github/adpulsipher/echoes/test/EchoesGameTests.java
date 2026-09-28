@@ -6,7 +6,15 @@ import io.github.adpulsipher.echoes.EchoesOfThePast;
 import io.github.adpulsipher.echoes.block.entity.EchoProjectorBlockEntity;
 import io.github.adpulsipher.echoes.component.EchoMemory;
 import io.github.adpulsipher.echoes.entity.EchoFigureEntity;
+import io.github.adpulsipher.echoes.combat.ArmorSets;
 import io.github.adpulsipher.echoes.entity.EchoWyrmEntity;
+import io.github.adpulsipher.echoes.entity.HierophantEntity;
+import io.github.adpulsipher.echoes.entity.HollowKingEntity;
+import io.github.adpulsipher.echoes.entity.SiegeColossusEntity;
+import io.github.adpulsipher.echoes.guide.GuideBook;
+import io.github.adpulsipher.echoes.showcase.ShowcaseActions;
+import io.github.adpulsipher.echoes.showcase.ShowcaseCatalog;
+import io.github.adpulsipher.echoes.showcase.Structures;
 import io.github.adpulsipher.echoes.entity.LingererEntity;
 import io.github.adpulsipher.echoes.entity.MemoryMothEntity;
 import io.github.adpulsipher.echoes.history.Era;
@@ -37,7 +45,8 @@ import net.minecraft.world.phys.AABB;
 public class EchoesGameTests {
 	private static final String[] ADVANCEMENTS = {
 		"root", "careful_hands", "witness_replay", "where_it_happened", "unearthed", "historian", "keeper_of_ages",
-		"elder_dawn", "moth_to_a_flame", "lingering_doubts", "laid_to_rest", "wyrmslayer", "echo_chamber"
+		"elder_dawn", "moth_to_a_flame", "lingering_doubts", "laid_to_rest", "wyrmslayer", "echo_chamber",
+		"field_notes", "key_to_the_past", "regicide", "the_walls_fall", "dawnbreaker", "echo_hunter", "crystal_clear", "full_regalia"
 	};
 
 	private static Component msg(String text) {
@@ -148,5 +157,99 @@ public class EchoesGameTests {
 			wyrm.discard();
 			helper.succeed();
 		});
+	}
+
+	@GameTest(maxTicks = 120)
+	public void newCreaturesLiveAndTick(GameTestHelper helper) {
+		List<net.minecraft.world.entity.Mob> mobs = List.of(
+				helper.spawn(ModEntities.ECHO_KNIGHT, new BlockPos(1, 2, 1)),
+				helper.spawn(ModEntities.SPECTRAL_ARCHER, new BlockPos(3, 2, 1)),
+				helper.spawn(ModEntities.ASH_REVENANT, new BlockPos(1, 2, 3)),
+				helper.spawn(ModEntities.DAWN_WISP, new BlockPos(3, 4, 3)),
+				helper.spawn(ModEntities.SHARD_CRAWLER, new BlockPos(2, 2, 2)));
+		helper.runAtTickTime(100, () -> {
+			for (net.minecraft.world.entity.Mob mob : mobs) {
+				helper.assertTrue(mob.isAlive(), msg(mob.getType() + " should be alive"));
+				mob.discard();
+			}
+			helper.succeed();
+		});
+	}
+
+	@GameTest(maxTicks = 160)
+	public void bossesLiveAndFight(GameTestHelper helper) {
+		HollowKingEntity king = helper.spawn(ModEntities.HOLLOW_KING, new BlockPos(2, 2, 2));
+		SiegeColossusEntity colossus = helper.spawn(ModEntities.SIEGE_COLOSSUS, new BlockPos(5, 2, 5));
+		HierophantEntity hierophant = helper.spawn(ModEntities.HIEROPHANT, new BlockPos(3, 4, 6));
+		ServerLevel level = helper.getLevel();
+		// A live target makes each boss run its attack state machine.
+		LingererEntity dummy = helper.spawn(ModEntities.LINGERER, new BlockPos(4, 2, 2));
+		king.setTarget(dummy);
+		colossus.setTarget(dummy);
+		helper.runAtTickTime(140, () -> {
+			helper.assertTrue(king.isAlive() && colossus.isAlive() && hierophant.isAlive(), msg("bosses should survive their first moments"));
+			helper.assertTrue(king.getMaxHealth() >= 400 && colossus.getMaxHealth() >= 500, msg("boss health"));
+			king.discard();
+			colossus.discard();
+			hierophant.discard();
+			dummy.discard();
+			level.getEntitiesOfClass(net.minecraft.world.entity.Mob.class, new AABB(helper.absolutePos(BlockPos.ZERO)).inflate(32),
+					e -> e instanceof io.github.adpulsipher.echoes.combat.Echoborn).forEach(net.minecraft.world.entity.Entity::discard);
+			helper.succeed();
+		});
+	}
+
+	@GameTest
+	public void bossesTakeSpectralBonus(GameTestHelper helper) {
+		ServerLevel level = helper.getLevel();
+		HollowKingEntity king = helper.spawn(ModEntities.HOLLOW_KING, new BlockPos(2, 2, 2));
+		king.setNoAi(true);
+		float before = king.getHealth();
+		king.hurtServer(level, level.damageSources().magic(), 10.0f);
+		helper.assertTrue(king.getHealth() < before, msg("the Hollow King can be hurt"));
+		king.discard();
+		helper.succeed();
+	}
+
+	@GameTest
+	public void showcaseFindsEveryReplay(GameTestHelper helper) {
+		ServerLevel level = helper.getLevel();
+		BlockPos near = helper.absolutePos(BlockPos.ZERO);
+		for (EventType type : EventType.values()) {
+			EchoMemory memory = ShowcaseActions.findMemory(level, near, type);
+			helper.assertTrue(memory != null && memory.type() == type, msg("a nearby memory of " + type));
+			HistoricEvent event = EchoLore.eventOf(level, memory);
+			helper.assertTrue(event.type() == type, msg("the memory replays as " + type + " but was " + event.type()));
+		}
+		for (String category : ShowcaseCatalog.CATEGORIES.keySet()) {
+			helper.assertTrue(!ShowcaseCatalog.CATEGORIES.get(category).isEmpty(), msg("catalog " + category));
+		}
+		helper.succeed();
+	}
+
+	@GameTest
+	public void projectorStageIsBuilt(GameTestHelper helper) {
+		ServerLevel level = helper.getLevel();
+		BlockPos origin = helper.absolutePos(new BlockPos(7, 0, 7));
+		BlockPos projector = Structures.build(level, "projector_stage", origin, net.minecraft.core.Direction.NORTH);
+		helper.assertTrue(level.getBlockState(projector).is(ModBlocks.ECHO_PROJECTOR), msg("the stage has a projector at its heart"));
+		helper.succeed();
+	}
+
+	@GameTest
+	public void guideBookIsWritten(GameTestHelper helper) {
+		ItemStack guide = new ItemStack(ModItems.GUIDE_BOOK);
+		var content = guide.get(net.minecraft.core.component.DataComponents.WRITTEN_BOOK_CONTENT);
+		helper.assertTrue(content != null && content.pages().size() > 15, msg("the field guide has its chapters"));
+		helper.assertTrue(GuideBook.pages().size() == content.pages().size(), msg("the guide is complete"));
+		helper.succeed();
+	}
+
+	@GameTest
+	public void armorSetsAreComplete(GameTestHelper helper) {
+		for (ArmorSets.ArmorSet set : ArmorSets.ALL) {
+			helper.assertTrue(set.helmet() != set.chestplate() && set.leggings() != set.boots(), msg("set " + set.id()));
+		}
+		helper.succeed();
 	}
 }

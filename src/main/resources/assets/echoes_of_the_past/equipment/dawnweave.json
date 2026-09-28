@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "echoes_of_the_past:dawnweave"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "echoes_of_the_past:dawnweave"
+      }
+    ]
+  }
+}

@@ -13,6 +13,8 @@ import io.github.adpulsipher.echoes.history.Terrain;
 import io.github.adpulsipher.echoes.projection.EchoLore;
 import io.github.adpulsipher.echoes.registry.ModComponents;
 import io.github.adpulsipher.echoes.registry.ModItems;
+import io.github.adpulsipher.echoes.showcase.ShowcaseActions;
+import io.github.adpulsipher.echoes.showcase.ShowcaseCatalog;
 import io.github.adpulsipher.echoes.world.TerrainClassifier;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.commands.CommandSourceStack;
@@ -61,7 +63,39 @@ public final class EchoesCommands {
 													return builder.buildFuture();
 												})
 												.executes(EchoesCommands::replay))))
+						.then(Commands.literal("showcase")
+								.then(Commands.argument("category", StringArgumentType.word())
+										.suggests((context, builder) -> {
+											ShowcaseCatalog.CATEGORIES.keySet().forEach(builder::suggest);
+											return builder.buildFuture();
+										})
+										.then(Commands.argument("id", StringArgumentType.word())
+												.suggests((context, builder) -> {
+													String category = StringArgumentType.getString(context, "category");
+													ShowcaseCatalog.CATEGORIES.getOrDefault(category, java.util.List.of()).forEach(builder::suggest);
+													return builder.buildFuture();
+												})
+												.executes(EchoesCommands::showcase))))
 		));
+	}
+
+	/** Runs an entry of the Codex of Echoes. Open to operators and to anyone in creative mode. */
+	private static int showcase(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+		CommandSourceStack source = context.getSource();
+		ServerPlayer player = source.getPlayerOrException();
+		if (!player.isCreative() && !source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)) {
+			source.sendFailure(Component.translatable("showcase.echoes_of_the_past.creative_only"));
+			return 0;
+		}
+		String category = StringArgumentType.getString(context, "category");
+		String id = StringArgumentType.getString(context, "id");
+		Component result = ShowcaseActions.run(player, category, id);
+		if (result == null) {
+			source.sendFailure(Component.translatable("showcase.echoes_of_the_past.unknown", category + " " + id));
+			return 0;
+		}
+		source.sendSuccess(() -> result, false);
+		return 1;
 	}
 
 	/** Starts the replay of this place's memory from the given era in the projector at {@code pos}. */

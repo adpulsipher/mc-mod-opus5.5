@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "echoes_of_the_past:revenant_ash",
+    "echoes_of_the_past:revenant_ash",
+    "echoes_of_the_past:revenant_ash",
+    "echoes_of_the_past:revenant_ash",
+    "minecraft:iron_ingot"
+  ],
+  "result": {
+    "id": "echoes_of_the_past:cindersteel_ingot"
+  }
+}

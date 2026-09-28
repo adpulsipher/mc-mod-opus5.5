@@ -22,5 +22,10 @@ public final class ModWorldgen {
 		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Decoration.UNDERGROUND_ORES, ECHO_DEPOSITS_DEEP);
 		BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), MobCategory.MONSTER, ModEntities.LINGERER, 12, 1, 2);
 		BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), MobCategory.AMBIENT, ModEntities.MEMORY_MOTH, 10, 1, 3);
+		BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), MobCategory.MONSTER, ModEntities.ECHO_KNIGHT, 8, 1, 2);
+		BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), MobCategory.MONSTER, ModEntities.SPECTRAL_ARCHER, 8, 1, 2);
+		BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), MobCategory.MONSTER, ModEntities.ASH_REVENANT, 8, 1, 2);
+		BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), MobCategory.MONSTER, ModEntities.DAWN_WISP, 6, 1, 3);
+		BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), MobCategory.MONSTER, ModEntities.SHARD_CRAWLER, 10, 1, 3);
 	}
 }

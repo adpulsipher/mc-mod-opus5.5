@@ -1,0 +1,68 @@
+{
+  "parent": "echoes_of_the_past:where_it_happened",
+  "display": {
+    "icon": {
+      "id": "echoes_of_the_past:keystone_of_crowns"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.key_to_the_past.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.key_to_the_past.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "keystone_of_crowns": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:keystone_of_crowns"
+          }
+        ]
+      }
+    },
+    "keystone_of_iron": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:keystone_of_iron"
+          }
+        ]
+      }
+    },
+    "keystone_of_dragons": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:keystone_of_dragons"
+          }
+        ]
+      }
+    },
+    "keystone_of_dawn": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "echoes_of_the_past:keystone_of_dawn"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "keystone_of_crowns",
+      "keystone_of_iron",
+      "keystone_of_dragons",
+      "keystone_of_dawn"
+    ]
+  ]
+}

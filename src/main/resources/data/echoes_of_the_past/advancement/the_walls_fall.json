@@ -1,0 +1,31 @@
+{
+  "parent": "echoes_of_the_past:key_to_the_past",
+  "display": {
+    "icon": {
+      "id": "echoes_of_the_past:colossus_core"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.the_walls_fall.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.the_walls_fall.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "slain": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "slain"
+    ]
+  ],
+  "rewards": {
+    "experience": 300
+  }
+}
