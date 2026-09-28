@@ -1,7 +1,6 @@
 package io.github.adpulsipher.echoes.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -9,6 +8,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
+import org.joml.Matrix4f;
 
 /**
  * Shared helpers for drawing translucent, self-lit ghosts.
@@ -47,9 +47,9 @@ public final class Hologram {
 			return;
 		}
 		poseStack.pushPose();
-		poseStack.mulPose(Axis.YP.rotationDegrees(180.0f - state.bodyRot));
+		poseStack.mulPose(new Matrix4f().rotationY((180.0f - state.bodyRot) * Mth.DEG_TO_RAD));
 		if (deathProgress > 0.0f) {
-			poseStack.mulPose(Axis.ZP.rotationDegrees(deathProgress * 90.0f));
+			poseStack.mulPose(new Matrix4f().rotationZ(deathProgress * Mth.HALF_PI));
 		}
 		poseStack.scale(-scale, -scale, scale);
 		poseStack.translate(0.0f, -1.501f, 0.0f);

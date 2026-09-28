@@ -3,11 +3,18 @@ on:
   push:
   pull_request:
   workflow_dispatch:
+    inputs:
+      publish_screenshots:
+        description: 'Commit client game test screenshots to docs/screenshots'
+        type: boolean
+        default: false
 
 jobs:
   build:
     runs-on: ubuntu-24.04
     timeout-minutes: 50
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -40,6 +47,17 @@ jobs:
             build/**/screenshots/**
             run/**/screenshots/**
           if-no-files-found: ignore
+      - name: Publish screenshots
+        if: always() && github.event_name == 'workflow_dispatch' && inputs.publish_screenshots
+        run: |
+          mkdir -p docs/screenshots
+          find . -path ./.git -prune -o -path ./docs -prune -o -name '*.png' -path '*screenshot*' -print | while read f; do cp "$f" docs/screenshots/; done
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/screenshots
+          git commit -m "Update game test screenshots [skip ci]" || echo "No screenshot changes"
+          git pull --rebase origin "${GITHUB_REF_NAME}" || true
+          git push origin "HEAD:${GITHUB_REF_NAME}"
       - name: Upload mod jar
         if: success()
         uses: actions/upload-artifact@v7

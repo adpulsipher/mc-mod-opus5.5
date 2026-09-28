@@ -46,7 +46,7 @@ public class EchoProjectorRenderer implements BlockEntityRenderer<EchoProjectorB
 	}
 
 	@Override
-	public void extractRenderState(EchoProjectorBlockEntity projector, State state, float partialTick, Vec3 cameraPos, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
+	public void extractRenderState(EchoProjectorBlockEntity projector, State state, float partialTick, Vec3 cameraPos, ModelFeatureRenderer.@Nullable CrumblingOverlay crumblingOverlay) {
 		BlockEntityRenderer.super.extractRenderState(projector, state, partialTick, cameraPos, crumblingOverlay);
 		state.hasEcho = projector.hasEcho();
 		state.projecting = projector.getProjectionTicks() > 0;

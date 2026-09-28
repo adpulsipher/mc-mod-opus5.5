@@ -17,6 +17,8 @@ import io.github.adpulsipher.echoes.world.TerrainClassifier;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
+import io.github.adpulsipher.echoes.block.entity.EchoProjectorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -48,7 +50,42 @@ public final class EchoesCommands {
 											return builder.buildFuture();
 										})
 										.executes(EchoesCommands::give)))
+						.then(Commands.literal("replay")
+								.requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
+								.then(Commands.argument("pos", BlockPosArgument.blockPos())
+										.then(Commands.argument("era", StringArgumentType.word())
+												.suggests((context, builder) -> {
+													for (Era era : Era.values()) {
+														builder.suggest(era.name().toLowerCase(Locale.ROOT));
+													}
+													return builder.buildFuture();
+												})
+												.executes(EchoesCommands::replay))))
 		));
+	}
+
+	/** Starts the replay of this place's memory from the given era in the projector at {@code pos}. */
+	private static int replay(CommandContext<CommandSourceStack> context) {
+		CommandSourceStack source = context.getSource();
+		ServerLevel level = source.getLevel();
+		BlockPos pos = BlockPosArgument.getBlockPos(context, "pos");
+		Era era;
+		try {
+			era = Era.valueOf(StringArgumentType.getString(context, "era").toUpperCase(Locale.ROOT));
+		} catch (IllegalArgumentException e) {
+			source.sendFailure(Component.translatable("command.echoes_of_the_past.give.unknown_era", StringArgumentType.getString(context, "era")));
+			return 0;
+		}
+		if (!(level.getBlockEntity(pos) instanceof EchoProjectorBlockEntity projector) || projector.hasEcho()) {
+			source.sendFailure(Component.translatable("command.echoes_of_the_past.replay.no_projector"));
+			return 0;
+		}
+		EchoMemory memory = EchoLore.memoryAt(level, pos.atY(era.representativeY()));
+		ItemStack echo = new ItemStack(ModItems.ECHO_BLOCK);
+		echo.set(ModComponents.ECHO_MEMORY, memory);
+		projector.insert(level, echo);
+		source.sendSuccess(() -> Component.translatable("command.echoes_of_the_past.give.success", memory.title()), true);
+		return 1;
 	}
 
 	private static int history(CommandContext<CommandSourceStack> context) {

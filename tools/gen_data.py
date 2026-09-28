@@ -635,6 +635,7 @@ def lang():
         "command.echoes_of_the_past.history.header": "The remembered history of chunk %s, %s:",
         "command.echoes_of_the_past.give.unknown_era": "Unknown era: %s",
         "command.echoes_of_the_past.give.success": "Conjured an echo: %s",
+        "command.echoes_of_the_past.replay.no_projector": "There is no idle Echo Projector there.",
     }
     adv = {
         "root": ("Echoes of the Past", "The past is buried beneath your feet. Find an echo shard or forge some copper to begin."),
