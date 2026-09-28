@@ -1,0 +1,24 @@
+{
+	"schemaVersion": 1,
+	"id": "echoes_of_the_past",
+	"version": "${version}",
+	"name": "Echoes of the Past",
+	"description": "Lore archaeology: unearth echo blocks and project ghostly replays of the history that happened in each chunk.",
+	"authors": ["adpulsipher"],
+	"contact": {
+		"sources": "https://github.com/adpulsipher/mc-mod-opus5.5"
+	},
+	"license": "MIT",
+	"icon": "assets/echoes_of_the_past/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["io.github.adpulsipher.echoes.EchoesOfThePast"],
+		"client": ["io.github.adpulsipher.echoes.client.EchoesOfThePastClient"]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

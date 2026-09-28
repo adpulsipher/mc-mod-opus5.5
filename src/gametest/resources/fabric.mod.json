@@ -1,0 +1,11 @@
+{
+	"schemaVersion": 1,
+	"id": "echoes_of_the_past_test",
+	"version": "1.0.0",
+	"name": "Echoes of the Past Tests",
+	"environment": "*",
+	"entrypoints": {
+		"fabric-gametest": ["io.github.adpulsipher.echoes.test.EchoesGameTests"],
+		"fabric-client-gametest": ["io.github.adpulsipher.echoes.test.EchoesClientGameTest"]
+	}
+}
