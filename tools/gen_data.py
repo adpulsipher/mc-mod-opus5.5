@@ -515,7 +515,7 @@ def worldgen():
     write(data(NS, "jukebox_song", "echoes.json"), {
         "comparator_output": 11,
         "description": {"translate": f"jukebox_song.{NS}.echoes"},
-        "length_in_seconds": 96.0,
+        "length_in_seconds": 101.0,
         "sound_event": ns("music_disc.echoes"),
     })
 

@@ -226,6 +226,53 @@ def paint_props(c):
     paint_box(c, 44, 64, 1, 3, 1, lambda f, x, y, w, h: gray(255))
 
 
+def details(c, role):
+    """Role-specific touches painted directly onto the skin layout."""
+    body_front = (20, 20)  # 8x12
+    body_back = (32, 20)
+    if role == "merchant":
+        # coin pouch on the belt and a necklace of office
+        for (x, y) in [(25, 29), (26, 29), (25, 30), (26, 30)]:
+            c.set(x, y, gray(110))
+        c.set(25, 29, gray(235))
+        for x in range(21, 27):
+            c.set(x, 21 + (1 if x in (22, 25) else 0) + (2 if x in (23, 24) else 0), gray(240))
+    if role == "noble":
+        for i, x in enumerate(range(21, 27)):
+            c.set(x, 22 + min(i, 5 - i), gray(250))
+        c.set(23, 25, gray(255))
+        c.set(24, 25, gray(255))
+    if role == "mage":
+        for x in range(20, 28):
+            if x % 2 == 0:
+                c.set(x, 30, gray(255))  # runes along the hem
+        for x in (22, 25):
+            for y in (23, 26):
+                c.set(x, y, gray(245))
+    if role == "archer":
+        # quiver on the back with arrow fletchings poking over the shoulder
+        for y in range(20, 30):
+            x = body_back[0] + 5 - (y - 20) // 3
+            c.set(x, y, gray(95))
+            c.set(x + 1, y, gray(120))
+        for x in (36, 37, 38):
+            c.set(x, 16 + 3, gray(250))
+    if role == "peasant" or role == "child":
+        for (x, y) in [(22, 25), (22, 26), (23, 25), (23, 26)]:
+            c.set(x, y, gray(160))  # a patch
+        c.set(22, 25, gray(140))
+    if role == "knight":
+        # a heraldic cross on the breastplate
+        for y in range(22, 28):
+            c.set(23, y, gray(250))
+            c.set(24, y, gray(250))
+        for x in range(21, 27):
+            c.set(x, 24, gray(250))
+    if role == "miner":
+        for (x, y) in [(21, 23), (26, 26), (22, 28), (43, 24)]:
+            c.set(x, y, gray(110))  # soot smudges
+
+
 ROLE_STYLES = {
     "soldier": dict(torso="chain", arms="chain", legs="cloth", hat=None, hair=110, boots=True, gloves=True),
     "knight": dict(torso="plate", arms="plate", legs="plate", hat=None, hair=90, boots=True, gloves=True),
@@ -263,6 +310,7 @@ def humanoid(role, scanlines=True, eyes_glow=False, tattered=False):
         paint_box(c, 0, 32, 4, 12, 4, overlay_limb(s["leg_overlay"]))
         paint_box(c, 0, 48, 4, 12, 4, overlay_limb(s["leg_overlay"]))
     paint_props(c)
+    details(c, role)
 
     if tattered:
         rnd = random.Random(role)
