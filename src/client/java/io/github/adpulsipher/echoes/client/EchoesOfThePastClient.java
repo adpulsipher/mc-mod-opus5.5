@@ -29,7 +29,6 @@ import io.github.adpulsipher.echoes.registry.ModEntities;
 import io.github.adpulsipher.echoes.replay.Pose;
 import io.github.adpulsipher.echoes.replay.Role;
 import net.fabricmc.api.ClientModInitializer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 
@@ -108,6 +107,6 @@ public class EchoesOfThePastClient implements ClientModInitializer {
 
 		BlockEntityRenderers.register(ModBlockEntities.ECHO_PROJECTOR, EchoProjectorRenderer::new);
 
-		ShowcaseBookItem.openScreen = player -> Minecraft.getInstance().setScreen(new ShowcaseScreen());
+		ShowcaseBookItem.openScreen = player -> io.github.adpulsipher.echoes.client.screen.Screens.open(new ShowcaseScreen());
 	}
 }

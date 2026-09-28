@@ -82,10 +82,10 @@ public class EchoesClientGameTest implements FabricClientGameTest {
 			});
 			context.waitTicks(20);
 			context.takeScreenshot("echoes-guide-book");
-			context.runOnClient(client -> client.setScreen(new io.github.adpulsipher.echoes.client.screen.ShowcaseScreen()));
+			context.setScreen(() -> new io.github.adpulsipher.echoes.client.screen.ShowcaseScreen());
 			context.waitTicks(20);
 			context.takeScreenshot("echoes-codex");
-			context.runOnClient(client -> client.setScreen(null));
+			context.setScreen(() -> null);
 		}
 	}
 
